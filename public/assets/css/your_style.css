@@ -1,0 +1,46 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+.select2-selection__choice {
+    padding: 1px 28px 1px 8px;
+    margin: 4px 0 3px 5px;
+}
+
+.select2-selection__choice__remove {
+    padding: 3px 4px 3px 6px;
+    /*margin : 0;*/
+}
+
+#search{
+    padding-bottom: 20px;
+}
+
+.input-order {
+    padding: 10px;
+}
+
+.text-input {
+    border-radius: 5px
+}
+
+.button-add {
+    margin-top:40px;
+    align-self: center;
+}

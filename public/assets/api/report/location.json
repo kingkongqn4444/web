@@ -1,0 +1,53 @@
+[
+    {
+      "id": "aaaaaaaa",
+      "name": "Ho Chi Minh",
+      "province": [
+        {
+          "id": "123443sadsad",
+          "name": "Q1",
+          "branch": [
+            {
+              "id": "23123awedwq",
+              "name": "CoopMark Cống quỳnh 1"
+            },
+            {
+              "id": "23123awedw3",
+              "name": "CoopMark Cống quỳnh 2"
+            }
+          ]
+        },
+        {
+          "id": "123443ssad",
+          "name": "Q9",
+          "branch": [
+            {
+              "id": "23123awe6wq",
+              "name": "CoopMark quận 9"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bbbbbbb",
+      "name": "Ha Noi",
+      "province": [
+        {
+          "id": "123443sadsad",
+          "name": "Quan Hoan Kiem",
+          "branch": [
+            {
+              "id": "23123awedwq",
+              "name": "CoopMark Hoan Kiem 1"
+            },
+            {
+              "id": "23123awedw3",
+              "name": "CoopMark Hoan Kiem 2"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+
