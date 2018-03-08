@@ -14,45 +14,24 @@ import serialize from 'form-serialize';
 class ProductList extends Component {
     constructor(props) {
         super(props);
-        this.query = Utils.parseQuery(this.props.router.location.search);
-        console.log(this.props.router);
         this.state = {
-            title: this.query['t'],
-            productId: this.query['id'],
-            limit: this.query['l'] || 20,
-            page: parseInt(this.query['p']) || 1,
+            loading: false,
+            data: []
         };
     }
 
     async componentWillMount() {
+        this.setState({ loading: true })
         await this.props.actions.authenticate.getAllCustomer(this.props.storage.token)
-        this._requestList();
+
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.router.location.search !== this.props.router.location.search) {
-            this.query = Utils.parseQuery(nextProps.router.location.search);
-
-            this.setState({
-                title: this.query['t'],
-                productId: this.query['id'],
-                page: parseInt(this.query['p']) || 1,
-                limit: this.query['l'] || 20,
-            }, () => {
-                this._requestList();
-            })
-        }
-
     }
 
-    _requestList() {
-        let offset = (this.state.page - 1) * this.state.limit;
-        let filters = {};
-        this.state.title && (filters['title'] = this.state.title);
-        this.state.productId && (filters['productId'] = this.state.productId);
+    deleteCustomer(id) {
+        this.props.actions.authenticate.deleteCustomer(this.props.storage.token, id)
     }
-
-    
 
     render() {
         return (
@@ -100,7 +79,10 @@ class ProductList extends Component {
                                                     <th>{item.email}</th>
                                                     <th>{item.phone}</th>
                                                     <th>{item.note}</th>
-                                                    <th>asdasd</th>
+                                                    <th>
+                                                        <button type='button' onClick={() => this.detailOrder(item.id)}>Chi tiết</button>
+                                                        <button type='button' onClick={() => this.deleteCustomer(item.id)}>Xóa</button>
+                                                    </th>
                                                 </tr>
                                             ) : null}
                                     </tbody>

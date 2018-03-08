@@ -3,12 +3,15 @@ import createReducer from '../';
 
 const INIT_STATE = ({
     login: '',
+    token: "",
     listProduct: [],
     submitOrder: [],
     allProduct: [],
     allCustomer: [],
     listOrder: [],
-    detailOrder: []
+    detailOrder: [],
+    deleteCustomer: [],
+    addCustomer: []
 });
 
 export default createReducer(INIT_STATE, {
@@ -25,6 +28,7 @@ export default createReducer(INIT_STATE, {
         return {
             ...state,
             login: action.response,
+            token: action.response.access_token
         };
     },
 
@@ -105,6 +109,36 @@ export default createReducer(INIT_STATE, {
         return {
             ...state,
             detailOrder: action.response.data
+        };
+    },
+
+    [Types.DELETE_CUSTOMER]: (state, action) => {
+        return {
+            ...state,
+            deleteCustomer: action.response
+        };
+    },
+
+    [Types.DELETE_CUSTOMER_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            deleteCustomer: action.response.data
+        };
+    },
+
+
+
+    [Types.ADD_CUSTOMER]: (state, action) => {
+        return {
+            ...state,
+            addCustomer: action.response
+        };
+    },
+
+    [Types.ADD_CUSTOMER_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            addCustomer: action.response.data
         };
     },
 });

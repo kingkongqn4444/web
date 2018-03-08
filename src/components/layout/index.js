@@ -9,10 +9,11 @@ import Shortcut from './navigation/shortcut';
 import Configs from '../../configs';
 
 export default class Layout extends React.Component {
+
     render() {
         return (
             <div>
-                <Header logout={() => this.props.logout()} />
+                <Header/>
                 <Navigation items={Configs.navigation} />
                 <div id="main" role="main">
                     <Ribbon />
@@ -24,5 +25,7 @@ export default class Layout extends React.Component {
             </div>
         )
     }
+
+
 }
 

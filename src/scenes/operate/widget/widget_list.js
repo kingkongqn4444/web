@@ -14738,7 +14738,7 @@ class WidgetList extends Component {
                 uom: this.state.donvi,
                 price: this.state.gia,
                 quantity: this.state.soluong,
-                amount: this.state.thanhtien,
+                amount: this.state.soluong * this.state.gia,
                 note: this.state.ghichu
             }
             let array = this.state.bill.slice()
@@ -14778,7 +14778,7 @@ class WidgetList extends Component {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
-                'Authorization': "Bearer " + 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWVkaWNpbmUtYXBpLmhlcm9rdWFwcC5jb20vYXBpL3YxL2xvZ2luIiwiaWF0IjoxNTE4MTY5NDU0LCJleHAiOjIxNzUxODE2OTQ1NCwibmJmIjoxNTE4MTY5NDU0LCJqdGkiOiJHcnptd3FMZkFKcFVRdXRpIiwic3ViIjo2LCJwcnYiOiJhOTU5Njc4ZWI3M2Q3Njg2MGFlZWFmOTg5ZDU1NjFlMDczZTFlNzhlIn0.vaLUliu6qz0F8SAzFDMp15gB7_Ds5DzzyOPlmaA0jIA'
+                'Authorization': "Bearer " + this.props.storage.token
             },
         }).then(function (response) {
             if (response.status == 200) {
@@ -14818,7 +14818,7 @@ class WidgetList extends Component {
                     uom: this.state.donvi,
                     price: this.state.gia,
                     quantity: this.state.soluong,
-                    amount: this.state.thanhtien,
+                    amount: parseInt(this.state.soluong) * parseInt(this.state.gia),
                     note: this.state.ghichu
                 }
                 let array = this.state.bill.slice()
@@ -15017,7 +15017,7 @@ class WidgetList extends Component {
                                         <label className="input">
                                             <h3>Thành tiền:</h3>
                                             <input type="number" name="t" placeholder="Thành tiền" id="one"
-                                                value={this.state.thanhtien}
+                                                value={this.state.gia * this.state.soluong}
                                                 onChange={e => this.setState({ thanhtien: e.target.value })}
                                             />
                                         </label>
@@ -15052,7 +15052,7 @@ class WidgetList extends Component {
                         <div>
                             <div className="widget-body no-padding">
                                 <div className="table-responsive">
-                                    <table className="table table-bordered table-striped table-hover">
+                                    <table className="table table-bordered table-striped table-hover ">
                                         <thead>
                                             <tr>
                                                 <th>Tên</th>

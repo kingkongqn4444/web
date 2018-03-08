@@ -14,7 +14,6 @@ import serialize from 'form-serialize';
 class ProductList extends Component {
     constructor(props) {
         super(props);
-        this.query = Utils.parseQuery(this.props.router.location.search);
         this.state = {
             name: '',
             phone: '',
@@ -36,7 +35,8 @@ class ProductList extends Component {
     }
 
     submitCustomer() {
-        // this.props.actions.product.addCustomer(this.state.name, this.state.phone, this.state.email, this.state.address, this.state.note)
+        this.props.actions.authenticate.addCustomer(this.props.storage.token, this.state.name, this.state.address, this.state.email, this.state.phone, this.state.note)
+        this.setState({ name: '', phone: '', email: '', address: '', note: '' })
     }
 
     render() {
@@ -132,9 +132,6 @@ class ProductList extends Component {
                         </li>
                     </ul>
                 </div>
-                <Link to={Utils.link(LINK.PRODUCT, "")} className="btn btn-success btn-lg">
-                    Chi tiết khách hàng
-                                </Link>
             </div>
         )
     }

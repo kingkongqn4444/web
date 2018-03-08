@@ -65,7 +65,7 @@ render(
                     <Route path="/san-pham/:action" component={Product} />
                     <Route path="/san-pham" component={Product} />
 
-                     <Route path="/them-khach-hang/:action" component={Attribute} />
+                    <Route path="/them-khach-hang/:action" component={Attribute} />
                     <Route path="/them-khach-hang" component={Attribute} />
 
                     <Route path="/manage/geolocation/:action" component={Geolocation} />

@@ -17,38 +17,29 @@ class Login extends Component {
             email: '',
             password: ''
         };
-
+        if (this.props.storage.token !== "") {
+            this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
+        }
     }
 
     componentDidMount() {
     }
 
     componentWillMount() {
-        this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
-        $('body').removeClass('smart-style-1');
     }
 
-    async handleLogin() {
-
-        await this.props.actions.authenticate.login(this.state.email, this.state.password)
+    handleLogin(e) {
+        e.preventDefault();
+        const form = document.querySelector('#login-form');
+        const data = serialize(form, { hash: true });
+        this.props.actions.authenticate.login(data)
         if (this.props.authenticate.login && this.props.authenticate.login.status == 200) {
             this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
             this.props.actions.storage.setAccessToken(this.props.authenticate.login.access_token)
         }
-        else {
-            this.setState({
-                showError: true
-            })
-        }
     }
 
     componentWillReceiveProps(nextProps) {
-        if (this.props.authenticate.error !== nextProps.authenticate.error) {
-            this.setState({
-                showError: true
-            })
-        }
-
         if (this.props.authenticate.token !== nextProps.authenticate.token) {
             this.props.actions.storage.setAccessToken(nextProps.authenticate.token);
             this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
@@ -157,7 +148,7 @@ class Login extends Component {
                                         </fieldset>
                                         <footer>
                                             <button type="button" className="btn btn-primary"
-                                                onClick={() => this.handleLogin()}
+                                                onClick={evt => this.handleLogin(evt)}
                                             >
                                                 Đăng nhập
                                             </button>

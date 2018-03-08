@@ -12,13 +12,9 @@ import Utils, {
 class Dashboard extends Component {
 
     componentWillMount() {
-        this.props.actions.authenticate.login()
     }
 
     async componentDidMount() {
-        this.setState({ loading: true })
-        await this.props.actions.authenticate.getAllProduct(this.props.storage.token)
-        this.setState({ loading: false })
     }
 
 
@@ -36,14 +32,10 @@ class Dashboard extends Component {
         })
     };
 
-    logout() {
-        this.props.actions.storage.removeAccessToken()
-    }
-
     render() {
         return (
 
-            <Layout logout={() => this.logout()}>
+            <Layout>
                 {this.state.loading ?
                     <div id="content">Loading....</div> :
                     <div id="content">

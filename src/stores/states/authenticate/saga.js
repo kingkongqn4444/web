@@ -41,7 +41,20 @@ function* detailOrder(action) {
     yield put({ ...action, type: Types.DETAIL_ORDER_SUCCESS, response });
 }
 
+function* deleteCustomer(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.DELETE_CUSTOMER_SUCCESS, response });
+}
+
+function* addCustomer(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.ADD_CUSTOMER_SUCCESS, response });
+}
+
+
 export default function* saga() {
+    yield takeLatest(Types.ADD_CUSTOMER, addCustomer);
+    yield takeLatest(Types.DELETE_CUSTOMER, deleteCustomer);
     yield takeLatest(Types.DETAIL_ORDER, detailOrder);
     yield takeLatest(Types.GET_LIST_ORDER, listOrder);
     yield takeLatest(Types.GET_ALL_CUSTOMER, allCustomer);

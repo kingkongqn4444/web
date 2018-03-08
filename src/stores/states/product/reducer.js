@@ -15,12 +15,4 @@ export default createReducer(INIT_STATE, {
             submitOrder: action.response
         };
     },
-
-    [Types.ADD_CUSTOMER_SUCCESS]: (state, action) => {
-        console.log('ssssssssssssssssssssdasdasd11111', action)
-        return {
-            ...state,
-            addCustomer: action.response
-        };
-    },
 });

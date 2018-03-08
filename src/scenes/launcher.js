@@ -15,9 +15,8 @@ class Launcher extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        this.props.actions.storage.getAccessToken();
-
+    async componentWillMount() {
+        await this.props.actions.storage.getAccessToken();
         let navigations = Configs['navigation'];
         let res = {};
         this.populate(navigations.items, [], res);
@@ -25,11 +24,11 @@ class Launcher extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        // if (this.props.storage.token !== nextProps.storage.token){
-        //     if (nextProps.storage.token === "") {
+        if (this.props.storage.token !== nextProps.storage.token) {
+            if (nextProps.storage.token === "") {
                 this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
-            // }
-        // }
+            }
+        }
     }
 
     render() {

@@ -141,7 +141,7 @@ class AccountList extends Component {
 
                         <div className="table-responsive">
 
-                            <table className="table table-bordered table-striped table-hover">
+                            <table className="table table-bordered table-striped table-hover table-scroll">
                                 <thead>
                                 <tr>
                                     <th>STT</th>

@@ -22,4 +22,10 @@ export default keymirror({
     DETAIL_ORDER: null,
     DETAIL_ORDER_SUCCESS: null,
 
+    DELETE_CUSTOMER: null,
+    DELETE_CUSTOMER_SUCCESS: null,
+
+    ADD_CUSTOMER: null,
+    ADD_CUSTOMER_SUCCESS: null
+
 }, "AUTHENTICATE_");
