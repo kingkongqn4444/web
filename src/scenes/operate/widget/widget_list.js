@@ -15120,7 +15120,7 @@ class WidgetList extends Component {
                                                 <th>Thay đổi</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody className="custom-table">
                                             {this.state.bill.map((item, index) =>
                                                 <tr key={index}>
                                                     <th>{item.name}</th>

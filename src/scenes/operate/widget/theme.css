@@ -54,3 +54,7 @@
 .suggestionHighlighted {
   background-color: #ddd;
 }
+
+.custom-table {
+  height: 50px;
+}
