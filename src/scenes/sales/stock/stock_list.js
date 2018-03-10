@@ -67,8 +67,6 @@ class StockList extends Component {
                                                 )
                                                 : null
                                             }
-
-
                                         </tbody>
                                     </table>
 

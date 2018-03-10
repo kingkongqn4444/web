@@ -8,6 +8,7 @@ import Utils, {
 import { Link } from 'react-router-dom';
 import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
+import Loading from '../../../components/loading';
 import Paginate from '../../../components/paginate';
 import serialize from 'form-serialize';
 import Modal from 'react-modal';
@@ -51,11 +52,10 @@ class ProductList extends Component {
 
         if (nextProps.authenticate.allCustomer && nextProps.authenticate.allCustomer.status == 200) {
             this.setState({
-                listCustomer: nextProps.authenticate.allCustomer.data,
+                listCustomer: nextProps.authenticate.allCustomer.data, loading: false
             })
         }
         if (nextProps.authenticate.detailCustomer && nextProps.authenticate.detailCustomer.status == 200) {
-            console.log('asdasdasdasdadsasdasdasdasda', 'vao hai')
             this.setState({
                 modalIsOpen: true,
                 data: nextProps.authenticate.detailCustomer.data
@@ -66,6 +66,7 @@ class ProductList extends Component {
     render() {
         return (
             <div id="content">
+                <Loading loading={this.state.loading} />
                 <div className="row">
                     <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                         <h1 className="page-title txt-color-blueDark">
