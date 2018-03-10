@@ -4,6 +4,7 @@ import React, {
 
 import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
+import Loading from '../../../components/loading';
 import BootstrapValidator from '../../../components/forms/bootstrap_validator';
 import serialize from 'form-serialize';
 class StockAdd extends Component {
@@ -13,13 +14,15 @@ class StockAdd extends Component {
             ten: '',
             soluong: 0,
             donvi: '',
-            mota: ''
+            mota: '',
+            loading: false
         }
     }
     onSubmit(e) {
         e.preventDefault();
         let form = document.querySelector('#attributeForm');
         var obj = serialize(form, { hash: true });
+        this.setState({ loading: true })
         this.props.actions.authenticate.addOutlet(this.props.storage.token, obj)
         return false;
     }
@@ -27,12 +30,12 @@ class StockAdd extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.authenticate.addOutlet && nextProps.authenticate.addOutlet.status == 200) {
-            alert('Thêm thành công')
             this.setState({
                 ten: '',
                 soluong: 0,
                 donvi: '',
-                mota: ''
+                mota: '',
+                loading: false
             })
         }
     }
@@ -130,7 +133,7 @@ class StockAdd extends Component {
                         </JarvisWidget>
                     </article>
                 </div>
-
+                <Loading loading={this.state.loading} />
             </div>
         )
     }

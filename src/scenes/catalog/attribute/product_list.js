@@ -8,6 +8,7 @@ import Utils, {
 import { Link } from 'react-router-dom';
 import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
+import Loading from '../../../components/loading';
 import Paginate from '../../../components/paginate';
 import serialize from 'form-serialize';
 
@@ -19,7 +20,8 @@ class ProductList extends Component {
             phone: '',
             email: '',
             address: '',
-            note: ''
+            note: '',
+            loading: false
         };
     }
 
@@ -33,8 +35,7 @@ class ProductList extends Component {
 
     componentWillReceiveProps(nextProps) {
         if (nextProps.authenticate.addCustomer && nextProps.authenticate.addCustomer.status == 200) {
-            alert('Thêm khách hàng mới thành công')
-            this.setState({ name: '', phone: '', email: '', address: '', note: '' })
+            this.setState({ name: '', phone: '', email: '', address: '', note: '', loading: false })
         }
     }
 
@@ -43,6 +44,7 @@ class ProductList extends Component {
             alert('Tên không được để trống')
         }
         else {
+            this.setState({ loading: true })
             this.props.actions.authenticate.addCustomer(this.props.storage.token, this.state.name, this.state.address, this.state.email, this.state.phone, this.state.note)
         }
     }
@@ -50,6 +52,7 @@ class ProductList extends Component {
     render() {
         return (
             <div id="content">
+                <Loading loading={this.state.loading} />
                 <div className="row">
                     <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                         <h1 className="page-title txt-color-blueDark">
