@@ -14813,6 +14813,7 @@ class WidgetList extends Component {
     }
 
     editBill = () => {
+        this.setState({ loading: true })
         var that = this
         let data = {
             "address": this.state.addressCustomer,
@@ -14832,7 +14833,7 @@ class WidgetList extends Component {
             },
         }).then(function (response) {
             if (response.status == 200) {
-                alert('chỉnh sửa đơn hàng thành công')
+                that.setState({ loading: false })
             }
         }, function (error) {
             error.message
