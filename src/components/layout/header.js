@@ -11,8 +11,9 @@ export default class Header extends React.Component {
         return <header id="header">
             <div id="logo-group">
                 <span id="logo">
-                    <img src="/assets/img/logo.png" // place your logo here
-                        alt="PPMS" />
+                    <b>PPMS</b>
+                    {/* <img src="/assets/img/logo.png" // place your logo here */}
+                        {/* alt="PPMS" /> */}
                 </span>
             </div>
             <div className="pull-right"  /*pulled right: nav area*/ >
