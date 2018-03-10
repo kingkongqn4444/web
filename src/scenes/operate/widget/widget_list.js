@@ -15108,41 +15108,42 @@ class WidgetList extends Component {
                             </span>
                             <h2>Danh sách nội dung</h2>
                         </header>
-                        <div>
-                            <div className="widget-body no-padding">
-                                <div className="table-responsive">
-                                    <table className="table table-bordered table-striped table-hover ">
-                                        <thead>
-                                            <tr>
-                                                <th>Tên</th>
-                                                <th>Đơn vị</th>
-                                                <th>Giá</th>
-                                                <th>Số lượng</th>
-                                                <th>Thành Tiền</th>
-                                                <th>Ghi chú</th>
-                                                <th>Thay đổi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="custom-table">
-                                            {this.state.bill.map((item, index) =>
-                                                <tr key={index}>
-                                                    <th>{item.name}</th>
-                                                    <th>{item.uom}</th>
-                                                    <th>{item.price}</th>
-                                                    <th>{item.quantity}</th>
-                                                    <th>{item.amount}</th>
-                                                    <th>{item.note}</th>
-                                                    <th><button type='button' onClick={() => this.deleteThuoc(index)}>Xóa</button></th>
+                        <div className="widget-body">
+                            <div className="custom-table-bill">
+                                <div className="no-padding">
+                                    <div className="table-responsive">
+                                        <table className="table table-bordered table-striped table-hover ">
+                                            <thead>
+                                                <tr>
+                                                    <th>Tên</th>
+                                                    <th>Đơn vị</th>
+                                                    <th>Giá</th>
+                                                    <th>Số lượng</th>
+                                                    <th>Thành Tiền</th>
+                                                    <th>Ghi chú</th>
+                                                    <th>Thay đổi</th>
                                                 </tr>
-                                            )}
-                                        </tbody>
-                                    </table>
+                                            </thead>
+                                            <tbody>
+                                                {this.state.bill.map((item, index) =>
+                                                    <tr key={index}>
+                                                        <th>{item.name}</th>
+                                                        <th>{item.uom}</th>
+                                                        <th>{item.price}</th>
+                                                        <th>{item.quantity}</th>
+                                                        <th>{item.amount}</th>
+                                                        <th>{item.note}</th>
+                                                        <th><button type='button' onClick={() => this.deleteThuoc(index)}>Xóa</button></th>
+                                                    </tr>
+                                                )}
+                                            </tbody>
+                                        </table>
+                                    </div>
                                 </div>
                             </div>
-                            <div className="col col-md-2 col-sm-2 col-xs-2 pull-right">
+                            <div className="col-xs-offset-7">
                                 <label className="input">
-                                    <h3>Thành tiền:</h3>
-                                    <p>{this.state.tongtien}</p>
+                                    <h3>Thành tiền: {this.state.tongtien}</h3>
                                 </label>
                             </div>
                         </div>

@@ -44,3 +44,8 @@
     margin-top:40px;
     align-self: center;
 }
+
+div.custom-table-bill {
+    height: 300px;
+    overflow: auto;
+}
