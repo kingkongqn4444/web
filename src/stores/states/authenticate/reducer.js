@@ -108,7 +108,7 @@ export default createReducer(INIT_STATE, {
     [Types.DETAIL_ORDER_SUCCESS]: (state, action) => {
         return {
             ...state,
-            detailOrder: action.response.data
+            detailOrder: action.response
         };
     },
 

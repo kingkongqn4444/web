@@ -8,6 +8,7 @@ const LINK = {
     ACCOUNT: "tai-khoan",
     PRODUCT: "san-pham",
     ADD_CUSTOMER: 'them-khach-hang',
+    SAVE_BILL: 'don-hang-dang-luu',
     DASHBOARD: "dashboard",
     CATEGORY: "danh-muc",
     CAMPAIGN: "chien-dich-khuyen-mai",
@@ -76,6 +77,29 @@ export default class {
                 break;
             case "them-khach-hang":
                 prefix = '/them-khach-hang/';
+                if (query) {
+                    let qs = {};
+                    let page = query.page;
+                    if (page) {
+                        qs['p'] = page;
+                    }
+                    let title = query.title;
+                    if (title) {
+                        qs['t'] = title;
+                    }
+                    let productId = query.id;
+                    if (productId) {
+                        qs['id'] = productId;
+                    }
+                    let limit = query.limit;
+                    if (limit) {
+                        qs['l'] = limit;
+                    }
+                    suffix += "?" + querystring.stringify(qs);
+                }
+                break;
+            case "don-hang-dang-luu":
+                prefix = '/don-hang-dang-luu/';
                 if (query) {
                     let qs = {};
                     let page = query.page;

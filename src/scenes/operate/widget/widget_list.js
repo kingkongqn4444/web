@@ -14657,6 +14657,23 @@ class WidgetList extends Component {
     }
 
     componentWillMount() {
+        if (this.props.id) {
+            this.props.actions.authenticate.getDetailOrder(this.props.storage.token, this.props.id)
+        }
+    }
+
+   async componentWillReceiveProps(nextProps) {
+        if (nextProps.authenticate.detailOrder && nextProps.authenticate.detailOrder.status == 200) {
+            let data = nextProps.authenticate.detailOrder.data
+           await this.setState({
+                noteCustomer: data.note,
+                addressCustomer: data.address,
+                dateCustomer: data.delivery_date,
+                phoneCustomer: data.phone,
+                nameCustomer: data.name,
+                bill:data.po_product
+            })
+        }
     }
 
     onChange = (event, { newValue }) => {
@@ -14700,16 +14717,17 @@ class WidgetList extends Component {
 
 
     componentDidMount() {
+    }
+
+    editBill() {
 
     }
+
 
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
         this.setState({ donvi: suggestion.uom, tenthuoc: suggestion.name, gia: suggestion.price })
     };
-
-    componentWillReceiveProps(nextProps) {
-    }
 
     submitDonThuoc = () => {
         if (this.state.tenthuoc == '') {
@@ -14726,10 +14744,6 @@ class WidgetList extends Component {
         }
         if (this.state.soluong == '') {
             alert('Số lượng không để trống')
-            return
-        }
-        if (this.state.thanhtien == '') {
-            alert('Tổng tiền không để trống')
             return
         }
         else {
@@ -14894,7 +14908,7 @@ class WidgetList extends Component {
                                             <h3>Tên khách hàng :</h3>
                                             <input
                                                 type="text" name="t" placeholder="Tên khách hàng" id="one"
-                                                defaultValue={this.state.phoneCustomer}
+                                                value={this.state.nameCustomer}
                                                 onChange={e => this.setState({ nameCustomer: e.target.value })}
                                             />
                                         </label>
@@ -14905,7 +14919,7 @@ class WidgetList extends Component {
                                             <h3>Số điện thoại:</h3>
                                             <input
                                                 type="number" name="t" placeholder="Số điện thoại" id="one"
-                                                defaultValue={this.state.phoneCustomer}
+                                                value={this.state.phoneCustomer}
                                                 onChange={e => this.setState({ phoneCustomer: e.target.value })}
                                             />
                                         </label>
@@ -14931,7 +14945,7 @@ class WidgetList extends Component {
                                         <label className="input">
                                             <h3>Địa chỉ :</h3>
                                             <input type="text" name="t" placeholder="Địa chỉ"
-                                                defaultValue={this.state.addressCustomer}
+                                                value={this.state.addressCustomer}
                                                 onChange={e => this.setState({ addressCustomer: e.target.value })}
                                             />
                                         </label>
@@ -14943,7 +14957,7 @@ class WidgetList extends Component {
                                         <label className="input">
                                             <h3>Ghi chú :</h3>
                                             <input type="text" name="t" placeholder="Ghi chú" id="one"
-                                                defaultValue={this.state.noteCustomer}
+                                                value={this.state.noteCustomer}
                                                 onChange={e => this.setState({ noteCustomer: e.target.value })}
                                             />
                                         </label>

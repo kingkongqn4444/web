@@ -41,6 +41,7 @@ import Search from './search';
 import Stock from './sales/stock';
 import Vendor from './sales/vendor';
 import Widget from './operate/widget';
+import DonHangDangLuu from './operate/widget';
 import PaymentMethod from './sales/payment_method';
 
 import Configs from '../configs';
@@ -72,10 +73,12 @@ render(
                     {/*<Route  path="/manage/logs/:action" component={Logs}/>*/}
                     {/*<Route path="/manage/monitor/:action" component={Monitor}/>*/}
                     <Route path="/phuong-thuc-thanh-toan/:action" component={PaymentMethod} />
+
                     <Route path="/van-hanh/chien-dich-khuyen-mai/:action/:id" component={Campaign} />
                     <Route path="/van-hanh/chien-dich-khuyen-mai/:action" component={Campaign} />
                     <Route path="/thong-ke/:action" component={Report} />
                     <Route path="/tra-cuu/:action/:id" component={Search} />
+                    <Route path="/don-hang-dang-luu/:action/:id" component={DonHangDangLuu} />
                     <Route path="/tra-cuu/:action" component={Search} />
                     <Route path="/sales/stock/:action" component={Stock} />
                     <Route path="/nha-cung-cap/:action" component={Vendor} />

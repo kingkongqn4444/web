@@ -15,14 +15,15 @@ class Widget extends Component {
     }
 
     render() {
-        let child = <div/>;
+        let child = <div />;
         if (!this.props.match.params.action) {
-            child = <List/>;
-        } else if (this.props.match.params.action === "them-moi") {
-            child = <Add/>;
+            child = <List />;
+        } else if (this.props.match.params.action === 'them-moi') {
+            child = <Add />;
         } else {
-            child = <Add id={this.props.match.params.action}/>
+            child = <Add id={this.props.match.params.action} />;
         }
+
         return (
             <Layout>
                 {child}

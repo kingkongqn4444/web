@@ -44,7 +44,12 @@ class SearchCart extends Component {
 
     detailOrder = (id) => {
         this.props.actions.authenticate.getDetailOrder(this.props.storage.token, id)
-        this.setState({ dataOrder: this.props.authenticate.detailOrder, modalIsOpen: true })
+        this.setState({ dataOrder: this.props.authenticate.detailOrder.data, modalIsOpen: true })
+    }
+
+
+    editOrder = () => {
+
     }
 
     render() {
@@ -90,6 +95,7 @@ class SearchCart extends Component {
                                                     <th>{item.note}</th>
                                                     <th>
                                                         <button type='button' onClick={() => this.detailOrder(item.id)}>Chi tiết</button>
+                                                        <Link to={Utils.link(LINK.WIDGET, item.id)}>Chỉnh sửa</Link>
                                                     </th>
                                                 </tr>
                                             ) : null}

@@ -10,6 +10,12 @@
           "title": "Tạo đơn hàng",
           "icon": "fa fa-lg fa-fw fa-book",
           "route": "/noi-dung"
+        },
+        {
+          "_id": "lưu",
+          "title": "Đơn hàng đang lưu",
+          "icon": "fa fa-lg fa-fw fa-book",
+          "route": "/don-hang-dang-luu"
         }
       ]
     },
@@ -25,7 +31,7 @@
           "route": "/san-pham"
         },
         {
-          "_id": "vendor_list",
+          "_id": "list_khach_hang",
           "title": "Thêm khách hàng",
           "icon": "fa fa-fw fa-list-alt",
           "route": "/them-khach-hang"
