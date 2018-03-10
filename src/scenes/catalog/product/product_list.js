@@ -10,14 +10,17 @@ import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
 import Paginate from '../../../components/paginate';
 import serialize from 'form-serialize';
+import Modal from 'react-modal';
 
 class ProductList extends Component {
     constructor(props) {
         super(props);
         this.state = {
             loading: false,
-            data: []
+            data: [],
+            modalIsOpen: false,
         };
+        this.detailCustomer = this.detailCustomer.bind()
     }
 
     async componentWillMount() {
@@ -26,11 +29,32 @@ class ProductList extends Component {
 
     }
 
-    componentWillReceiveProps(nextProps) {
+    afterOpenModal = () => {
+        // this.subtitle.style.color = '#f00';
+    }
+
+    closeModal = () => {
+        this.setState({ modalIsOpen: false });
     }
 
     deleteCustomer(id) {
         this.props.actions.authenticate.deleteCustomer(this.props.storage.token, id)
+    }
+
+    detailCustomer = (id) => {
+        this.props.actions.authenticate.detailCustomer(this.props.storage.token, id)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authenticate.detailCustomer && nextProps.authenticate.detailCustomer.status == 200) {
+            this.setState({
+                modalIsOpen: true,
+                data: nextProps.authenticate.detailCustomer.data
+            })
+        }
+        if (nextProps.authenticate.deleteCustomer && nextProps.authenticate.deleteCustomer.status == 200) {
+            alert('Xóa thành công')
+        }
     }
 
     render() {
@@ -80,7 +104,7 @@ class ProductList extends Component {
                                                     <th>{item.phone}</th>
                                                     <th>{item.note}</th>
                                                     <th>
-                                                        <button type='button' onClick={() => this.detailOrder(item.id)}>Chi tiết</button>
+                                                        <button type='button' onClick={() => this.detailCustomer(item.id)}>Chi tiết</button>
                                                         <button type='button' onClick={() => this.deleteCustomer(item.id)}>Xóa</button>
                                                     </th>
                                                 </tr>
@@ -106,6 +130,75 @@ class ProductList extends Component {
                     })}
                 />
 
+                <Modal
+                    isOpen={this.state.modalIsOpen}
+                    onAfterOpen={this.afterOpenModal}
+                    onRequestClose={this.closeModal}
+                    style={{
+                        overlay: {
+                            position: 'fixed',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                            alignSelf: 'center',
+                        },
+                        content: {
+                            position: 'absolute',
+                            top: '30%',
+                            left: '40%',
+                            right: 'auto',
+                            bottom: 'auto',
+                            marginRight: '-50%',
+                            border: '1px solid #ccc',
+                            background: '#fff',
+                            overflow: 'auto',
+                            WebkitOverflowScrolling: 'touch',
+                            borderRadius: '4px',
+                            outline: 'none',
+                            padding: '20px'
+                        }
+                    }}
+                    contentLabel="Example Modal"
+                    ariaHideApp={false}
+                >
+                    <div>
+                        <h4>Tên : {this.state.data.name}</h4>
+                        <h4>Địa chỉ :{this.state.data.address}</h4>
+                        <h4 >Số điện thoại :{this.state.data.phone}</h4>
+                        <h4 >Ghi chú  :{this.state.data.note}</h4>
+                        <h4 ref={subtitle => this.subtitle = subtitle}>Danh sách đơn hàng đã đặt</h4>
+                        {this.state.data.order && this.state.data.order.length > 0 ?
+
+                            <table className="table table-bordered table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Tên</th>
+                                        <th>Đơn vị</th>
+                                        <th>Giá</th>
+                                        <th>Số lượng</th>
+                                        <th>Thành tiền</th>
+                                        <th>Chi tiết</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {this.state.data.order.map((item, index) =>
+                                        <tr key={index}>
+                                            <th>{item.name}</th>
+                                            <th>{item.uom}</th>
+                                            <th>{item.price}</th>
+                                            <th>{item.quantity}</th>
+                                            <th>{item.amount}</th>
+                                            <th>{item.note}</th>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
+                            : <div>Khách hàng này chưa có đơn đặt hàng nào</div>
+                        }
+                    </div>
+                </Modal>
             </div>
         )
     }

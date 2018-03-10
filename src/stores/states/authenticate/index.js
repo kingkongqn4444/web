@@ -26,6 +26,9 @@ export default keymirror({
     DELETE_CUSTOMER_SUCCESS: null,
 
     ADD_CUSTOMER: null,
-    ADD_CUSTOMER_SUCCESS: null
+    ADD_CUSTOMER_SUCCESS: null,
 
+
+    DETAIL_CUSTOMER: null,
+    DETAIL_CUSTOMER_SUCCESS: null
 }, "AUTHENTICATE_");

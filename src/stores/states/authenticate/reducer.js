@@ -11,7 +11,8 @@ const INIT_STATE = ({
     listOrder: [],
     detailOrder: [],
     deleteCustomer: [],
-    addCustomer: []
+    addCustomer: [],
+    detailCustomer: []
 });
 
 export default createReducer(INIT_STATE, {
@@ -122,23 +123,30 @@ export default createReducer(INIT_STATE, {
     [Types.DELETE_CUSTOMER_SUCCESS]: (state, action) => {
         return {
             ...state,
-            deleteCustomer: action.response.data
-        };
-    },
-
-
-
-    [Types.ADD_CUSTOMER]: (state, action) => {
-        return {
-            ...state,
-            addCustomer: action.response
+            deleteCustomer: action.response
         };
     },
 
     [Types.ADD_CUSTOMER_SUCCESS]: (state, action) => {
         return {
             ...state,
-            addCustomer: action.response.data
+            addCustomer: action.response
+        };
+    },
+
+    [Types.DETAIL_CUSTOMER]: (state, action) => {
+        return {
+            ...state,
+            detailCustomer: action.response
+        };
+    },
+
+
+
+    [Types.DETAIL_CUSTOMER_SUCCESS]: (state, action) => {
+        return {
+            ...state,
+            detailCustomer: action.response
         };
     },
 });
