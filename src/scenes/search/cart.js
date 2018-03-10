@@ -4,6 +4,7 @@ import React, {
 
 import Connect from '../../stores/connect';
 import JarvisWidget from '../../components/jarvis_widget';
+import Loading from '../../components/loading';
 import serialize from 'form-serialize';
 import Modal from 'react-modal';
 import Utils, {
@@ -16,7 +17,8 @@ class SearchCart extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            data: []
+            data: [],
+            loading: false
         }
     }
 
@@ -28,8 +30,15 @@ class SearchCart extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    componentWillMount() {
-        this.props.actions.authenticate.getListOrder(this.props.storage.token)
+    async componentWillMount() {
+        this.setState({ loading: true })
+        await this.props.actions.authenticate.getListOrder(this.props.storage.token)
+        console.log("asdhaufhsfhasdfhasfuhasdiufa", this.props.authenticate.listOrder)
+
+    }
+
+    componentDidMount() {
+
     }
 
     getTime(time) {
@@ -51,6 +60,9 @@ class SearchCart extends Component {
     componentWillReceiveProps(nextProps) {
         if (nextProps.authenticate.detailOrder && nextProps.authenticate.detailOrder.status == 200) {
             this.setState({ data: nextProps.authenticate.detailOrder.data })
+        }
+        if (nextProps.authenticate.listOrder && nextProps.authenticate.listOrder.status == 200) {
+            this.setState({ loading: false })
         }
     }
 
@@ -92,8 +104,8 @@ class SearchCart extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.props.authenticate.listOrder && this.props.authenticate.listOrder.length > 0 ?
-                                            this.props.authenticate.listOrder.map((item, index) =>
+                                        {this.props.authenticate.listOrder && this.props.authenticate.listOrder.data ?
+                                            this.props.authenticate.listOrder.data.map((item, index) =>
                                                 <tr key={index}>
                                                     <th>{item.name}</th>
                                                     <th>{item.address}</th>
@@ -181,6 +193,7 @@ class SearchCart extends Component {
                         </table>
                     </div>
                 </Modal>
+                <Loading loading={this.state.loading} />
             </div>
         )
     }

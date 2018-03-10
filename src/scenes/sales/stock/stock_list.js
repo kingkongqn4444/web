@@ -4,23 +4,33 @@ import React, {
 
 import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
+import Loading from '../../../components/loading';
 class StockList extends Component {
     constructor(props) {
         super(props);
+
+        this.state = {
+            loading: false
+        };
     }
 
 
     componentWillMount() {
+        this.setState({ loading: true })
         this.props.actions.authenticate.listOutler(this.props.storage.token)
     }
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.authenticate.listOutlet && nextProps.authenticate.listOutlet.status == 200) {
+            this.setState({ loading: false })
+        }
     }
 
 
     render() {
         return (
             <div className="panel">
+                <Loading loading={this.state.loading} />
                 <div className="panel panel-heading">
                     <h1>Quản lý kho chứa</h1>
                 </div>
@@ -46,10 +56,10 @@ class StockList extends Component {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {this.props.authenticate.listOutlet && this.props.authenticate.listOutlet.length > 0 ?
-                                                this.props.authenticate.listOutlet.map((item, index) =>
+                                            {this.props.authenticate.listOutlet && this.props.authenticate.listOutlet.data ?
+                                                this.props.authenticate.listOutlet.data.map((item, index) =>
                                                     <tr key={index}>
-                                                        <td>{item.id}</td>
+                                                        <td>{index}</td>
                                                         <td><a href="/sales/stock/add">{item.name}</a></td>
                                                         <td>{item.stock_balance}</td>
                                                         <td><label className="label label-success"> Còn hàng</label></td>

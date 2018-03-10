@@ -1,35 +1,29 @@
 import React, {
     Component
 } from 'react';
-
+import Modal from 'react-modal';
 import Connect from '../../../stores/connect';
 import JarvisWidget from '../../../components/jarvis_widget';
 import Paginate from '../../../components/paginate';
 import Autosuggest from 'react-autosuggest';
 import UiDatepicker from '../../../components/forms/date_picker';
+import Loading from '../../../components/loading';
 import Utils, {
     BIGBOX,
     LINK
 } from "../../../utils";
 import { Link } from 'react-router-dom';
 import index from '../../../stores/states/authenticate/index';
-import Modal from 'react-modal';
 const theme = {
     container: {
         position: 'relative'
     },
     input: {
-        // width: 240,
         height: 30,
-        // padding: '5px 10px',
         fontFamily: 'Helvetica, sans-serif',
         fontWeight: 300,
         fontSize: 16,
         border: '1px solid #aaa',
-        // borderTopLeftRadius: 4,
-        // borderTopRightRadius: 4,
-        // borderBottomLeftRadius: 4,
-        // borderBottomRightRadius: 4,
     },
     inputFocused: {
         outline: 'none'
@@ -14624,7 +14618,16 @@ const renderSuggestion = suggestion => (
         {suggestion.name}
     </span>
 );
-
+const customStyles = {
+    content: {
+        top: '50%',
+        left: '50%',
+        right: 'auto',
+        bottom: 'auto',
+        marginRight: '-50%',
+        transform: 'translate(-50%, -50%)'
+    }
+};
 class WidgetList extends Component {
     constructor(props) {
         super(props);
@@ -14649,6 +14652,7 @@ class WidgetList extends Component {
             modalIsOpen: false,
             tongtien: 0,
             editbill: false,
+            loading: false,
             idBill: 0
         }
         this.submitDonThuoc = this.submitDonThuoc.bind()
@@ -14658,10 +14662,13 @@ class WidgetList extends Component {
         this.onForCus = this.onForCus.bind()
     }
 
+
+
     componentWillMount() {
         if (this.props.id) {
+            this.setState({ loading: true })
             this.props.actions.authenticate.getDetailOrder(this.props.storage.token, this.props.id)
-            this.setState({ idBill: this.props.id, editbill: true })
+            this.setState({ idBill: this.props.id, editbill: true, loading: false })
         }
     }
 
@@ -14675,6 +14682,7 @@ class WidgetList extends Component {
                 phoneCustomer: data.phone,
                 nameCustomer: data.name,
                 bill: data.po_product,
+                loading: false
             })
         }
     }
@@ -14774,6 +14782,7 @@ class WidgetList extends Component {
     }
 
     submitBill = () => {
+        this.setState({ loading: true })
         var that = this
         let data = {
             "address": this.state.addressCustomer,
@@ -14796,7 +14805,7 @@ class WidgetList extends Component {
         }).then(function (response) {
             if (response.status == 200) {
                 alert('Tạo đơn hàng thành công')
-                that.setState({ bill: [] })
+                that.setState({ bill: [], loading: false })
             }
         }, function (error) {
             error.message
@@ -14829,18 +14838,6 @@ class WidgetList extends Component {
             error.message
         })
     }
-
-    // editBill() {
-    //     this.props.actions.authenticate.editOrder(
-    //         this.props.storage.token,
-    //         this.state.idBill,
-    //         this.state.nameCustomer,
-    //         this.state.addressCustomer,
-    //         this.state.phoneCustomer,
-    //         this.state.noteCustomer,
-    //         this.state.bill
-    //     )
-    // }
 
     handleKeyDown = (e) => {
         if (e.keyCode == 9) {
@@ -15203,6 +15200,7 @@ class WidgetList extends Component {
                         id: this.state.productId
                     })}
                 />
+                <Loading loading={this.state.loading} />
             </div>
         )
     }

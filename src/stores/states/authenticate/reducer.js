@@ -113,9 +113,10 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.GET_LIST_ORDER_SUCCESS]: (state, action) => {
+        console.log('asdasdasdasdasdasdasdnajkdakdasdasda', action)
         return {
             ...state,
-            listOrder: action.response.data
+            listOrder: action.response
         };
     },
 
@@ -185,10 +186,10 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.LIST_OUTLET_SUCCESS]: (state, action) => {
-        console.log('asdasdasdasdasdashfsjfhsfsdfss', action)
+        console.log('asdasdjaskdjaskdhjashdjkas', action)
         return {
             ...state,
-            listOutlet: action.response.data
+            listOutlet: action.response
         };
     },
 
