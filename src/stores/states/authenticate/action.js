@@ -17,6 +17,39 @@ export function login(data) {
     }
 }
 
+export function addOutlet(token, data) {
+    return {
+        type: Types.ADD_OUTLET,
+        payload: {
+            token: token,
+            api: 'http://medicine-api.herokuapp.com/api/v1/outlet-product',
+            method: 'POST',
+            payload: {
+                name: data.name,
+                stock_balance: data.soluong,
+                description: data.mota,
+                uom: data.oum
+            }
+        }
+    }
+}
+
+export function listOutler(token) {
+    return {
+        type: Types.LIST_OUTLET,
+        payload: {
+            token: token,
+            api: 'http://medicine-api.herokuapp.com/api/v1/outlet-product',
+            method: 'GET',
+            payload: {
+            }
+        }
+    }
+}
+
+
+
+
 export function getListProduct() {
     return {
         type: Types.GET_LIST_PRODUCT,
@@ -124,6 +157,25 @@ export function getListOrder(token) {
             api: 'http://medicine-api.herokuapp.com/api/v1/orderAll',
             method: 'GET',
             payload: {
+            }
+        }
+    }
+}
+
+
+export function editOrder(token, id, name, address, phone, note, po_product) {
+    return {
+        type: Types.EDIT_ORDER,
+        payload: {
+            token: token,
+            api: 'http://medicine-api.herokuapp.com/api/v1/order/' + id,
+            method: 'PUT',
+            payload: {
+                name: name,
+                address: address,
+                phone: phone,
+                note: note,
+                po_product: JSON.stringify(po_product)
             }
         }
     }

@@ -22,7 +22,7 @@ export default class Navigation extends React.Component {
                         closedSign={'<i class="fa fa-plus-square-o"></i>'}
                         items={this.props.items}
                     >
-                        Nhà thuốc
+                        {/* Nhà thuốc */}
                     </NavMenu>
                 </nav>
                 <MinifyMenu/>

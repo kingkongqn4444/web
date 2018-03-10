@@ -74,7 +74,7 @@ class ProductList extends Component {
                                             <h3>Tên khách hàng :</h3>
                                             <input
                                                 type="text" name="t" placeholder="Tên khách hàng" id="one"
-                                                defaultValue={this.state.name}
+                                                value={this.state.name}
                                                 onChange={e => this.setState({ name: e.target.value })}
                                             />
                                         </label>

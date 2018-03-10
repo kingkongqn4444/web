@@ -237,7 +237,7 @@ console.log(this.props.vendor.detail)
                                                     <label className="toggle col-lg-3" style={{
                                                         display: "inline-block"
                                                     }}>
-                                                        <input type="checkbox" name="Nhà thuốc"
+                                                        <input type="checkbox" name=""
                                                                value={this.state.coopmart}
                                                                defaultChecked={this.state.coopmart}
                                                                onChange={e => this.setState({coopmart: e.target.checked})}/>

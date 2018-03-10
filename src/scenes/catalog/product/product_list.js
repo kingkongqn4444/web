@@ -18,6 +18,7 @@ class ProductList extends Component {
         this.state = {
             loading: false,
             data: [],
+            listCustomer: [],
             modalIsOpen: false,
         };
         this.detailCustomer = this.detailCustomer.bind()
@@ -37,8 +38,9 @@ class ProductList extends Component {
         this.setState({ modalIsOpen: false });
     }
 
-    deleteCustomer(id) {
-        this.props.actions.authenticate.deleteCustomer(this.props.storage.token, id)
+    async deleteCustomer(id) {
+        await this.props.actions.authenticate.deleteCustomer(this.props.storage.token, id)
+        this.props.actions.authenticate.getAllCustomer(this.props.storage.token)
     }
 
     detailCustomer = (id) => {
@@ -46,14 +48,18 @@ class ProductList extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
+
+        if (nextProps.authenticate.allCustomer && nextProps.authenticate.allCustomer.status == 200) {
+            this.setState({
+                listCustomer: nextProps.authenticate.allCustomer.data,
+            })
+        }
         if (nextProps.authenticate.detailCustomer && nextProps.authenticate.detailCustomer.status == 200) {
+            console.log('asdasdasdasdadsasdasdasdasda', 'vao hai')
             this.setState({
                 modalIsOpen: true,
                 data: nextProps.authenticate.detailCustomer.data
             })
-        }
-        if (nextProps.authenticate.deleteCustomer && nextProps.authenticate.deleteCustomer.status == 200) {
-            alert('Xóa thành công')
         }
     }
 
@@ -95,8 +101,8 @@ class ProductList extends Component {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {this.props.authenticate.allCustomer && this.props.authenticate.allCustomer.length > 0 ?
-                                            this.props.authenticate.allCustomer.map((item, index) =>
+                                        {this.state.listCustomer && this.state.listCustomer.length > 0 ?
+                                            this.state.listCustomer.map((item, index) =>
                                                 <tr key={index}>
                                                     <th>{item.name}</th>
                                                     <th>{item.address}</th>

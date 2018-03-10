@@ -12,7 +12,7 @@ class LoginInfo extends React.Component {
 			    <span>
 			        <ToggleShortcut>
 			            <img src={this.props.user ? this.props.user.picture : "/assets/img/avatars/sunny.png"} alt="me"
-                             className="online"/><span>{ this.props.user ? this.props.user.username : "Nhà thuốc" }</span><i className="fa fa-angle-down"/>
+                             className="online"/><span>{ this.props.user ? this.props.user.username : "" }</span><i className="fa fa-angle-down"/>
 			        </ToggleShortcut>
 			     </span>
             </div>

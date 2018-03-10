@@ -16,7 +16,7 @@ class SearchCart extends Component {
         super(props);
         this.state = {
             modalIsOpen: false,
-            dataOrder: []
+            data: []
         }
     }
 
@@ -44,7 +44,14 @@ class SearchCart extends Component {
 
     detailOrder = (id) => {
         this.props.actions.authenticate.getDetailOrder(this.props.storage.token, id)
-        this.setState({ dataOrder: this.props.authenticate.detailOrder, modalIsOpen: true })
+        this.setState({ modalIsOpen: true })
+
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (nextProps.authenticate.detailOrder && nextProps.authenticate.detailOrder.status == 200) {
+            this.setState({ data: nextProps.authenticate.detailOrder.data })
+        }
     }
 
 
@@ -141,11 +148,11 @@ class SearchCart extends Component {
                     ariaHideApp={false}
                 >
                     <div>
-                        <h4>Tên : {this.state.dataOrder.name}</h4>
-                        <h4>Địa chỉ :{this.state.dataOrder.address}</h4>
-                        <h4 >Số điện thoại :{this.state.dataOrder.phone}</h4>
-                        <h4 >Ngày đặt hàng  :{this.getTime(this.state.dataOrder.delivery_date)}</h4>
-                        <h4 >Ghi chú  :{this.state.dataOrder.note}</h4>
+                        <h4>Tên : {this.state.data.name}</h4>
+                        <h4>Địa chỉ :{this.state.data.address}</h4>
+                        <h4 >Số điện thoại :{this.state.data.phone}</h4>
+                        <h4 >Ngày đặt hàng  :{this.getTime(this.state.data.delivery_date)}</h4>
+                        <h4 >Ghi chú  :{this.state.data.note}</h4>
                         <h4 ref={subtitle => this.subtitle = subtitle}>Chi tiết đơn đặt hàng</h4>
                         <table className="table table-bordered table-striped table-hover">
                             <thead>
@@ -159,8 +166,8 @@ class SearchCart extends Component {
                                 </tr>
                             </thead>
                             <tbody>
-                                {this.state.dataOrder.po_product && this.state.dataOrder.po_product.length > 0 ?
-                                    this.state.dataOrder.po_product.map((item, index) =>
+                                {this.state.data.po_product && this.state.data.po_product.length > 0 ?
+                                    this.state.data.po_product.map((item, index) =>
                                         <tr key={index}>
                                             <th>{item.name}</th>
                                             <th>{item.uom}</th>

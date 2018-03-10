@@ -14648,6 +14648,8 @@ class WidgetList extends Component {
             bill: [],
             modalIsOpen: false,
             tongtien: 0,
+            editbill: false,
+            idBill: 0
         }
         this.submitDonThuoc = this.submitDonThuoc.bind()
         this.submitBill = this.submitBill.bind()
@@ -14659,19 +14661,20 @@ class WidgetList extends Component {
     componentWillMount() {
         if (this.props.id) {
             this.props.actions.authenticate.getDetailOrder(this.props.storage.token, this.props.id)
+            this.setState({ idBill: this.props.id, editbill: true })
         }
     }
 
-   async componentWillReceiveProps(nextProps) {
+    async componentWillReceiveProps(nextProps) {
         if (nextProps.authenticate.detailOrder && nextProps.authenticate.detailOrder.status == 200) {
             let data = nextProps.authenticate.detailOrder.data
-           await this.setState({
+            await this.setState({
                 noteCustomer: data.note,
                 addressCustomer: data.address,
                 dateCustomer: data.delivery_date,
                 phoneCustomer: data.phone,
                 nameCustomer: data.name,
-                bill:data.po_product
+                bill: data.po_product,
             })
         }
     }
@@ -14717,12 +14720,8 @@ class WidgetList extends Component {
 
 
     componentDidMount() {
-    }
-
-    editBill() {
 
     }
-
 
 
     onSuggestionSelected = (event, { suggestion, suggestionValue, suggestionIndex, sectionIndex, method }) => {
@@ -14797,12 +14796,51 @@ class WidgetList extends Component {
         }).then(function (response) {
             if (response.status == 200) {
                 alert('Tạo đơn hàng thành công')
-                that.setState({ modalIsOpen: true, bill: [] })
+                that.setState({ bill: [] })
             }
         }, function (error) {
             error.message
         })
     }
+
+    editBill = () => {
+        var that = this
+        let data = {
+            "address": this.state.addressCustomer,
+            "name": this.state.nameCustomer,
+            "note": this.state.noteCustomer,
+            "phone": this.state.phoneCustomer,
+            "po_product": this.state.bill
+        }
+
+        fetch('https://medicine-api.herokuapp.com/api/v1/order/' + this.state.idBill, {
+            method: "POST",
+            body: JSON.stringify(data),
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': "Bearer " + this.props.storage.token
+            },
+        }).then(function (response) {
+            if (response.status == 200) {
+                alert('chỉnh sửa đơn hàng thành công')
+            }
+        }, function (error) {
+            error.message
+        })
+    }
+
+    // editBill() {
+    //     this.props.actions.authenticate.editOrder(
+    //         this.props.storage.token,
+    //         this.state.idBill,
+    //         this.state.nameCustomer,
+    //         this.state.addressCustomer,
+    //         this.state.phoneCustomer,
+    //         this.state.noteCustomer,
+    //         this.state.bill
+    //     )
+    // }
 
     handleKeyDown = (e) => {
         if (e.keyCode == 9) {
@@ -14822,10 +14860,6 @@ class WidgetList extends Component {
                 alert('Số lượng không để trống')
                 return
             }
-            // if (this.state.thanhtien == '') {
-            //     alert('Tổng tiền không để trống')
-            //     return
-            // }
             else {
                 let thuoc = {
                     name: this.state.tenthuoc,
@@ -14835,6 +14869,7 @@ class WidgetList extends Component {
                     amount: parseInt(this.state.soluong) * parseInt(this.state.gia),
                     note: this.state.ghichu
                 }
+                let tong = parseInt(thuoc.amount)
                 let array = this.state.bill.slice()
                 array.push(thuoc)
                 this.setState({
@@ -14849,7 +14884,7 @@ class WidgetList extends Component {
                     thanhtien: 0,
                     ghichu: '',
                     value: '',
-                    tongtien: parseInt(this.state.tongtien) + parseInt(this.state.thanhtien)
+                    tongtien: parseInt(this.state.tongtien) + parseInt(tong)
                 })
             }
         }
@@ -14857,6 +14892,15 @@ class WidgetList extends Component {
 
     onForCus = () => {
         this._input.focus();
+    }
+
+    deleteThuoc(index) {
+        let arrayClone = this.state.bill.slice()
+
+        if (index > -1) {
+            arrayClone.splice(index, 1);
+        }
+        this.setState({ bill: arrayClone })
     }
 
     render() {
@@ -14884,8 +14928,8 @@ class WidgetList extends Component {
                         <ul id="sparks" className="">
                             <li className="sparks-info">
 
-                                <button onClick={() => this.submitBill()} type="button" className="btn btn-success btn-lg">
-                                    Tạo mới
+                                <button onClick={() => { this.state.editbill ? this.editBill() : this.submitBill() }} type="button" className="btn btn-success btn-lg">
+                                    {this.state.editbill ? "Lưu chỉnh sửa" : "Tạo mới"}
                                 </button>
                             </li>
                         </ul>
@@ -15075,6 +15119,7 @@ class WidgetList extends Component {
                                                 <th>Số lượng</th>
                                                 <th>Thành Tiền</th>
                                                 <th>Ghi chú</th>
+                                                <th>Xóa</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -15086,6 +15131,7 @@ class WidgetList extends Component {
                                                     <th>{item.quantity}</th>
                                                     <th>{item.amount}</th>
                                                     <th>{item.note}</th>
+                                                    <th><button type='button' onClick={() => this.deleteThuoc(index)}>Xóa</button></th>
                                                 </tr>
                                             )}
                                         </tbody>

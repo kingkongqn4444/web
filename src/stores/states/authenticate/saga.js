@@ -55,7 +55,27 @@ function* detailCustomer(action) {
     let response = yield call(API.request, action.payload);
     yield put({ ...action, type: Types.DETAIL_CUSTOMER_SUCCESS, response });
 }
+
+function* editOrder(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.EDIT_ORDER_SUCCESS, response });
+}
+
+function* addOutlet(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.ADD_OUTLET_SUCCESS, response });
+}
+
+function* listOutlet(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.LIST_OUTLET_SUCCESS, response });
+}
+
+
 export default function* saga() {
+    yield takeLatest(Types.LIST_OUTLET, listOutlet);
+    yield takeLatest(Types.ADD_OUTLET, addOutlet);
+    yield takeLatest(Types.EDIT_ORDER, editOrder);
     yield takeLatest(Types.DETAIL_CUSTOMER, detailCustomer);
     yield takeLatest(Types.ADD_CUSTOMER, addCustomer);
     yield takeLatest(Types.DELETE_CUSTOMER, deleteCustomer);

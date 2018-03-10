@@ -30,5 +30,14 @@ export default keymirror({
 
 
     DETAIL_CUSTOMER: null,
-    DETAIL_CUSTOMER_SUCCESS: null
+    DETAIL_CUSTOMER_SUCCESS: null,
+
+    EDIT_ORDER: null,
+    EDIT_ORDER_SUCCESS: null,
+
+    ADD_OUTLET: null,
+    ADD_OUTLET_SUCCESS: null,
+
+    LIST_OUTLET: null,
+    LIST_OUTLET_SUCCESS: null
 }, "AUTHENTICATE_");
