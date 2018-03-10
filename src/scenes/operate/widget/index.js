@@ -19,9 +19,9 @@ class Widget extends Component {
         if (!this.props.match.params.action) {
             child = <List />;
         } else if (this.props.match.params.action === 'them-moi') {
-            child = <Add />;
+            child = <List />;
         } else {
-            child = <Add id={this.props.match.params.action} />;
+            child = <List id={this.props.match.params.action} />;
         }
 
         return (

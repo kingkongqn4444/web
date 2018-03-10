@@ -10,12 +10,6 @@
           "title": "Tạo đơn hàng",
           "icon": "fa fa-lg fa-fw fa-book",
           "route": "/noi-dung"
-        },
-        {
-          "_id": "lưu",
-          "title": "Đơn hàng đang lưu",
-          "icon": "fa fa-lg fa-fw fa-book",
-          "route": "/don-hang-dang-luu"
         }
       ]
     },

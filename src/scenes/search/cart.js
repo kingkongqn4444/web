@@ -44,7 +44,7 @@ class SearchCart extends Component {
 
     detailOrder = (id) => {
         this.props.actions.authenticate.getDetailOrder(this.props.storage.token, id)
-        this.setState({ dataOrder: this.props.authenticate.detailOrder.data, modalIsOpen: true })
+        this.setState({ dataOrder: this.props.authenticate.detailOrder, modalIsOpen: true })
     }
 
 

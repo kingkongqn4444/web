@@ -32,11 +32,19 @@ class ProductList extends Component {
 
 
     componentWillReceiveProps(nextProps) {
+        if (nextProps.authenticate.addCustomer && nextProps.authenticate.addCustomer.status == 200) {
+            alert('Thêm khách hàng mới thành công')
+            this.setState({ name: '', phone: '', email: '', address: '', note: '' })
+        }
     }
 
     submitCustomer() {
-        this.props.actions.authenticate.addCustomer(this.props.storage.token, this.state.name, this.state.address, this.state.email, this.state.phone, this.state.note)
-        this.setState({ name: '', phone: '', email: '', address: '', note: '' })
+        if (this.state.name == '') {
+            alert('Tên không được để trống')
+        }
+        else {
+            this.props.actions.authenticate.addCustomer(this.props.storage.token, this.state.name, this.state.address, this.state.email, this.state.phone, this.state.note)
+        }
     }
 
     render() {

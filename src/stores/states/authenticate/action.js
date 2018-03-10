@@ -57,6 +57,20 @@ export function deleteCustomer(token, id) {
     }
 }
 
+export function detailCustomer(token, id) {
+    return {
+        type: Types.DETAIL_CUSTOMER,
+        payload: {
+            token: token,
+            api: 'http://medicine-api.herokuapp.com/api/v1/customerDetail',
+            method: 'POST',
+            payload: {
+                id: id
+            }
+        }
+    }
+}
+
 export function addCustomer(token, name, address, email, phone, note) {
     return {
         type: Types.ADD_CUSTOMER,

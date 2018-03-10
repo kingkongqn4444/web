@@ -51,8 +51,12 @@ function* addCustomer(action) {
     yield put({ ...action, type: Types.ADD_CUSTOMER_SUCCESS, response });
 }
 
-
+function* detailCustomer(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.DETAIL_CUSTOMER_SUCCESS, response });
+}
 export default function* saga() {
+    yield takeLatest(Types.DETAIL_CUSTOMER, detailCustomer);
     yield takeLatest(Types.ADD_CUSTOMER, addCustomer);
     yield takeLatest(Types.DELETE_CUSTOMER, deleteCustomer);
     yield takeLatest(Types.DETAIL_ORDER, detailOrder);
