@@ -39,5 +39,8 @@ export default keymirror({
     ADD_OUTLET_SUCCESS: null,
 
     LIST_OUTLET: null,
-    LIST_OUTLET_SUCCESS: null
+    LIST_OUTLET_SUCCESS: null,
+
+    REGISTER: null,
+    REGISTER_SUCCESS: null
 }, "AUTHENTICATE_");

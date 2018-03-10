@@ -15,7 +15,8 @@ const INIT_STATE = ({
     detailCustomer: [],
     editOrder: [],
     addOutlet: [],
-    listOutlet: []
+    listOutlet: [],
+    register: []
 });
 
 export default createReducer(INIT_STATE, {
@@ -28,11 +29,27 @@ export default createReducer(INIT_STATE, {
         };
     },
 
+    [Types.LOGIN]: (state, action) => {
+        return {
+            ...state,
+            login: action.response,
+        };
+    },
+
+
     [Types.LOGIN_SUCCESS]: (state, action) => {
         return {
             ...state,
             login: action.response,
             token: action.response.access_token
+        };
+    },
+
+    [Types.REGISTER_SUCCESS]: (state, action) => {
+        // console.log('asdasdasdasdasdasdasdasdasdasdasd', action)
+        return {
+            ...state,
+            register: action.response,
         };
     },
 

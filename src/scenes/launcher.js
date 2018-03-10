@@ -21,6 +21,7 @@ class Launcher extends Component {
         let res = {};
         this.populate(navigations.items, [], res);
         this.props.actions.app.setNavigation(res);
+        console.log('asdasdasdasdasdasdasda', this.props.storage.token)
     }
 
     componentWillReceiveProps(nextProps) {

@@ -71,8 +71,13 @@ function* listOutlet(action) {
     yield put({ ...action, type: Types.LIST_OUTLET_SUCCESS, response });
 }
 
+function* register(action) {
+    let response = yield call(API.request, action.payload);
+    yield put({ ...action, type: Types.REGISTER_SUCCESS, response });
+}
 
 export default function* saga() {
+    yield takeLatest(Types.REGISTER, register);
     yield takeLatest(Types.LIST_OUTLET, listOutlet);
     yield takeLatest(Types.ADD_OUTLET, addOutlet);
     yield takeLatest(Types.EDIT_ORDER, editOrder);
