@@ -15,28 +15,46 @@ class Login extends Component {
         this.state = {
             showError: false,
             email: '',
-            password: ''
+            password: '',
+            registerName: '',
+            registerEmail: '',
+            resigterPass: '',
+            confirmPass: '',
+            register: false,
+            renderDangNhap: true
         };
         if (this.props.storage.token !== "") {
             this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
         }
     }
 
-    componentDidMount() {
-    }
-
-    componentWillMount() {
-    }
-
     handleLogin(e) {
+        this.setState({ register: false })
         e.preventDefault();
         const form = document.querySelector('#login-form');
         const data = serialize(form, { hash: true });
         this.props.actions.authenticate.login(data)
-        if (this.props.authenticate.login && this.props.authenticate.login.status == 200) {
-            this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
-            this.props.actions.storage.setAccessToken(this.props.authenticate.login.access_token)
+        console.log('asdasdsdfjsdfkjghcsjkgsdfd', this.props.authenticate.token)
+        this.props.actions.storage.setAccessToken(this.props.authenticate.token)
+    }
+
+    handerRegister(e) {
+        if (this.state.resigterPass !== this.state.confirmPass) {
+            alert("Mật khẩu phải giống nhau")
+            return
         }
+        if (this.state.resigterPass.length < 6) {
+            alert("Mật khẩu ít nhất 6 ký tự")
+            return
+        }
+        else {
+            this.setState({ register: true })
+            e.preventDefault();
+            const form = document.querySelector('#register-form');
+            const data = serialize(form, { hash: true });
+            this.props.actions.authenticate.register(data)
+        }
+
     }
 
     componentWillReceiveProps(nextProps) {
@@ -44,23 +62,26 @@ class Login extends Component {
             this.props.actions.storage.setAccessToken(nextProps.authenticate.token);
             this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
         }
+        if (nextProps.authenticate.login && nextProps.authenticate.login.status == 200) {
+            this.props.actions.app.navigate(Utils.link(LINK.DASHBOARD))
+        }
+        if (nextProps.authenticate.register && nextProps.authenticate.register.status == 200) {
+            this.setState({ register: false })
+        }
     }
 
     updateInputValue(evt) {
-        //console.log("input field updated with "+evt.target.value);
-        // this.state = { email: evt.target.value };
         this.setState({
             email: evt.target.value
         })
     }
 
     updateInputValuePassword(evt) {
-        //console.log("input field updated with "+evt.target.value);
-        // this.state = { password: evt.target.value };
         this.setState({
             password: evt.target.value
         })
     }
+
 
 
     render() {
@@ -100,60 +121,148 @@ class Login extends Component {
                             <div className="col-xs-12 col-sm-12 col-md-5 col-lg-4">
                                 <div className="well no-padding">
 
-                                    <form id="login-form" className="smart-form client-form">
-                                        <header>
-                                            Đăng nhập
-                                        </header>
-                                        <fieldset>
-                                            {
-                                                this.state.showError && (
-                                                    <section>
-                                                        <div className="alert alert-danger fade in">
-                                                            <i className="fa-fw fa fa-times" />
-                                                            <strong>Lỗi!</strong> {this.props.authenticate.error}
-                                                        </div>
-                                                    </section>
-                                                )
-                                            }
-                                            <section>
-                                                <label className="label">Email</label>
-                                                <label className="input"> <i className="icon-append fa fa-user" />
-                                                    <input type="email"
-                                                        onChange={(abc) => this.updateInputValue(abc)}
-                                                        name="phone" data-smart-validate-input=""
-                                                        data-required="" data-email=""
-                                                        data-message-required="Please enter your email address"
-                                                        data-message-email="Please enter a VALID email address" />
-                                                    <b className="tooltip tooltip-top-right"><i
-                                                        className="fa fa-user txt-color-teal" />
-                                                        Email</b>
-                                                </label>
-                                            </section>
-                                            <section>
-                                                <label className="label">Mật khẩu</label>
-                                                <label className="input"> <i className="icon-append fa fa-lock" />
-                                                    <input type="password" name="password"
-                                                        onChange={(def) => this.updateInputValuePassword(def)}
-                                                        data-smart-validate-input="" data-required=""
-                                                        data-minlength="3" data-maxnlength="20"
-                                                        data-message="Please enter your email password" />
-                                                    <b className="tooltip tooltip-top-right"><i
-                                                        className="fa fa-lock txt-color-teal" /> Mật khẩu</b> </label>
-                                            </section>
-                                            <section>
-                                                <label className="checkbox">
-                                                    <input type="checkbox" name="remember" defaultChecked={true} />
-                                                    <i />Stay signed in</label>
-                                            </section>
-                                        </fieldset>
-                                        <footer>
-                                            <button type="button" className="btn btn-primary"
-                                                onClick={evt => this.handleLogin(evt)}
-                                            >
+                                    {this.state.register ?
+
+                                        <form id="register-form" className="smart-form client-form">
+                                            <header>
+                                                Đăng Ký
+                                    </header>
+                                            <fieldset>
+                                                {
+                                                    this.state.showError && (
+                                                        <section>
+                                                            <div className="alert alert-danger fade in">
+                                                                <i className="fa-fw fa fa-times" />
+                                                                <strong>Lỗi!</strong> {this.props.authenticate.error}
+                                                            </div>
+                                                        </section>
+                                                    )
+                                                }
+                                                <section>
+                                                    <label className="label">Tên</label>
+                                                    <label className="input"> <i className="icon-append fa fa-user" />
+                                                        <input type="email"
+                                                            onChange={(abc) => this.setState({ registerName: abc.target.value })}
+                                                            name="name" data-smart-validate-input=""
+                                                            data-required="" data-email=""
+                                                            data-message-required="Please enter your email address"
+                                                            data-message-email="Please enter a VALID email address" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-user txt-color-teal" />
+                                                            Email</b>
+                                                    </label>
+                                                </section>
+
+                                                <section>
+                                                    <label className="label">Email</label>
+                                                    <label className="input"> <i className="icon-append fa fa-user" />
+                                                        <input type="email"
+                                                            onChange={(abc) => this.setState({ registerEmail: abc.target.value })}
+                                                            name="email" data-smart-validate-input=""
+                                                            data-required="" data-email=""
+                                                            data-message-required="Please enter your email address"
+                                                            data-message-email="Please enter a VALID email address" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-user txt-color-teal" />
+                                                            Email</b>
+                                                    </label>
+                                                </section>
+                                                <section>
+                                                    <label className="label">Mật khẩu</label>
+                                                    <label className="input"> <i className="icon-append fa fa-lock" />
+                                                        <input type="password" name="password"
+                                                            onChange={(def) => this.setState({ resigterPass: def.target.value })}
+                                                            data-smart-validate-input="" data-required=""
+                                                            data-minlength="3" data-maxnlength="20"
+                                                            data-message="Please enter your email password" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-lock txt-color-teal" /> Mật khẩu</b> </label>
+                                                </section>
+                                                <section>
+                                                    <label className="label">Xác nhận mật khẩu</label>
+                                                    <label className="input"> <i className="icon-append fa fa-user" />
+                                                        <input type="email"
+                                                            onChange={(abc) => this.setState({ confirmPass: abc.target.value })}
+                                                            name="xacnhan" data-smart-validate-input=""
+                                                            data-required="" data-email=""
+                                                            data-message-required="Please enter your email address"
+                                                            data-message-email="Please enter a VALID email address" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-user txt-color-teal" />
+                                                            Email</b>
+                                                    </label>
+                                                </section>
+                                                <section>
+                                                    <label className="checkbox">
+                                                        <input type="checkbox" name="remember" defaultChecked={true} />
+                                                        <i />Stay signed in</label>
+                                                </section>
+                                            </fieldset>
+                                            <footer>
+                                                <button type="button" className="btn btn-primary"
+                                                    onClick={evt => this.handerRegister(evt)}
+                                                >
+                                                    Đăng ký
+                                                </button>
+                                                <a onClick={() => this.setState({ register: false })}>Đã có tài khoản ? Đăng nhập</a>
+                                            </footer>
+                                        </form> :
+                                        <form id="login-form" className="smart-form client-form">
+                                            <header>
                                                 Đăng nhập
+                                        </header>
+                                            <fieldset>
+                                                {
+                                                    this.state.showError && (
+                                                        <section>
+                                                            <div className="alert alert-danger fade in">
+                                                                <i className="fa-fw fa fa-times" />
+                                                                <strong>Lỗi!</strong> {this.props.authenticate.error}
+                                                            </div>
+                                                        </section>
+                                                    )
+                                                }
+                                                <section>
+                                                    <label className="label">Email</label>
+                                                    <label className="input"> <i className="icon-append fa fa-user" />
+                                                        <input type="email"
+                                                            onChange={(abc) => this.updateInputValue(abc)}
+                                                            name="phone" data-smart-validate-input=""
+                                                            data-required="" data-email=""
+                                                            data-message-required="Please enter your email address"
+                                                            data-message-email="Please enter a VALID email address" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-user txt-color-teal" />
+                                                            Email</b>
+                                                    </label>
+                                                </section>
+                                                <section>
+                                                    <label className="label">Mật khẩu</label>
+                                                    <label className="input"> <i className="icon-append fa fa-lock" />
+                                                        <input type="password" name="password"
+                                                            onChange={(def) => this.updateInputValuePassword(def)}
+                                                            data-smart-validate-input="" data-required=""
+                                                            data-minlength="3" data-maxnlength="20"
+                                                            data-message="Please enter your email password" />
+                                                        <b className="tooltip tooltip-top-right"><i
+                                                            className="fa fa-lock txt-color-teal" /> Mật khẩu</b> </label>
+                                                </section>
+                                                <section>
+                                                    <label className="checkbox">
+                                                        <input type="checkbox" name="remember" defaultChecked={true} />
+                                                        <i />Stay signed in</label>
+                                                </section>
+                                            </fieldset>
+                                            <footer>
+                                                <a onClick={() => this.setState({ register: true })}>Chưa có tài khoản ? Đăng ký</a>
+                                                <button type="button" className="btn btn-primary"
+                                                    onClick={evt => this.handleLogin(evt)}
+                                                >
+                                                    Đăng Nhập
                                             </button>
-                                        </footer>
-                                    </form>
+                                            </footer>
+                                        </form>
+                                    }
                                 </div>
                             </div>
                         </div>

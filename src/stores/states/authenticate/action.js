@@ -17,6 +17,22 @@ export function login(data) {
     }
 }
 
+export function register(data) {
+    return {
+        type: Types.REGISTER,
+        payload: {
+            api: 'http://medicine-api.herokuapp.com/api/v1/register',
+            method: 'POST',
+            payload: {
+                name: data.name,
+                email: data.email,
+                password: data.password
+            }
+        }
+    }
+}
+
+
 export function addOutlet(token, data) {
     return {
         type: Types.ADD_OUTLET,

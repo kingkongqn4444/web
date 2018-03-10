@@ -21,15 +21,15 @@ const theme = {
     input: {
         // width: 240,
         height: 30,
-        padding: '10px 20px',
+        // padding: '5px 10px',
         fontFamily: 'Helvetica, sans-serif',
         fontWeight: 300,
         fontSize: 16,
         border: '1px solid #aaa',
-        borderTopLeftRadius: 4,
-        borderTopRightRadius: 4,
-        borderBottomLeftRadius: 4,
-        borderBottomRightRadius: 4,
+        // borderTopLeftRadius: 4,
+        // borderTopRightRadius: 4,
+        // borderBottomLeftRadius: 4,
+        // borderBottomRightRadius: 4,
     },
     inputFocused: {
         outline: 'none'
@@ -14814,7 +14814,7 @@ class WidgetList extends Component {
         }
 
         fetch('https://medicine-api.herokuapp.com/api/v1/order/' + this.state.idBill, {
-            method: "POST",
+            method: "PUT",
             body: JSON.stringify(data),
             headers: {
                 'Accept': 'application/json',
@@ -15065,18 +15065,9 @@ class WidgetList extends Component {
                                     <div className="col col-md-2 col-sm-2 col-xs-2">
                                         <label className="input">
                                             <h3>Số lượng:</h3>
-                                            <input type="number" name="t" placeholder="Số lượng" id="one" onKeyDown={this.handleKeyDown}
+                                            <input type="number" name="t" placeholder="Số lượng" id="one"
                                                 value={this.state.soluong}
                                                 onChange={e => this.setState({ soluong: e.target.value, thanhtien: this.state.gia * e.target.value })}
-                                            />
-                                        </label>
-                                    </div>
-                                    <div className="col col-md-2 col-sm-2 col-xs-2">
-                                        <label className="input">
-                                            <h3>Thành tiền:</h3>
-                                            <input type="number" name="t" placeholder="Thành tiền" id="one"
-                                                value={this.state.gia * this.state.soluong}
-                                                onChange={e => this.setState({ thanhtien: e.target.value })}
                                             />
                                         </label>
                                     </div>
@@ -15084,13 +15075,23 @@ class WidgetList extends Component {
                                     <div className="col col-md-2 col-sm-2 col-xs-2">
                                         <label className="input">
                                             <h3>Ghi chú :</h3>
-                                            <input type="text" name="t" onFocus={() => this.onForCus()} placeholder="Ghi chú" id="one"
+                                            <input type="text" name="t" onKeyDown={this.handleKeyDown}
+                                                placeholder="Ghi chú" id="one"
                                                 value={this.state.ghichu}
                                                 onChange={e => this.setState({ ghichu: e.target.value })}
                                             />
                                         </label>
                                     </div>
-
+                                    <div className="col col-md-2 col-sm-2 col-xs-2">
+                                        <label className="input">
+                                            <h3>Thành tiền:</h3>
+                                            <input type="number" name="t" placeholder="Thành tiền" id="one"
+                                                onFocus={() => this.onForCus()}
+                                                value={this.state.gia * this.state.soluong}
+                                                onChange={e => this.setState({ thanhtien: e.target.value })}
+                                            />
+                                        </label>
+                                    </div>
                                 </div>
                                 <footer>
                                     <button type="button" onClick={() => this.submitDonThuoc()} className="btn btn-primary"> Thêm</button>
@@ -15119,7 +15120,7 @@ class WidgetList extends Component {
                                                 <th>Số lượng</th>
                                                 <th>Thành Tiền</th>
                                                 <th>Ghi chú</th>
-                                                <th>Xóa</th>
+                                                <th>Thay đổi</th>
                                             </tr>
                                         </thead>
                                         <tbody className="custom-table">
@@ -15138,7 +15139,7 @@ class WidgetList extends Component {
                                     </table>
                                 </div>
                             </div>
-                            <div className="col col-md-2 col-sm-2 col-xs-2">
+                            <div className="col col-md-2 col-sm-2 col-xs-2 pull-right">
                                 <label className="input">
                                     <h3>Thành tiền:</h3>
                                     <p>{this.state.tongtien}</p>

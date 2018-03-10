@@ -12,6 +12,7 @@ export function removeAccessToken() {
 }
 
 export function setAccessToken(token) {
+    
     return {
         type: Types.SET_TOKEN,
         storage: {
