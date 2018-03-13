@@ -33,7 +33,6 @@ class SearchCart extends Component {
     async componentWillMount() {
         this.setState({ loading: true })
         await this.props.actions.authenticate.getListOrder(this.props.storage.token)
-        console.log("asdhaufhsfhasdfhasfuhasdiufa", this.props.authenticate.listOrder)
 
     }
 
