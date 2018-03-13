@@ -113,8 +113,8 @@ class SearchCart extends Component {
                                                     <th>{item.phone}</th>
                                                     <th>{item.note}</th>
                                                     <th>
-                                                        <button type='button' onClick={() => this.detailOrder(item.id)}>Chi tiết</button>
-                                                        <Link to={Utils.link(LINK.WIDGET, item.id)}>Chỉnh sửa</Link>
+                                                        <button className="btn btn-success col-xs-offset-2" type='button' onClick={() => this.detailOrder(item.id)}>Chi tiết</button>
+                                                        <Link className="btn btn-info col-xs-offset-2" to={Utils.link(LINK.WIDGET, item.id)}>Chỉnh sửa</Link>
                                                     </th>
                                                 </tr>
                                             ) : null}

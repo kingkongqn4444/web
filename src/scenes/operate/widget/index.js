@@ -5,6 +5,9 @@ import React, {
 import Connect from '../../../stores/connect';
 
 import Layout from '../../../components/layout';
+import Utils, {
+    LINK
+} from '../../../utils';
 
 import List from './widget_list';
 import Add from './widget_add';
@@ -12,6 +15,7 @@ import Add from './widget_add';
 class Widget extends Component {
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind()
     }
 
     render() {
@@ -25,10 +29,15 @@ class Widget extends Component {
         }
 
         return (
-            <Layout>
+            <Layout logout={() => this.logout()}>
                 {child}
             </Layout>
         )
+    }
+
+    logout() {
+        this.props.actions.storage.removeAccessToken()
+        this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
     }
 }
 

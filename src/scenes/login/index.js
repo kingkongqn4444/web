@@ -34,7 +34,6 @@ class Login extends Component {
         const form = document.querySelector('#login-form');
         const data = serialize(form, { hash: true });
         this.props.actions.authenticate.login(data)
-        console.log('asdasdsdfjsdfkjghcsjkgsdfd', this.props.authenticate.token)
         this.props.actions.storage.setAccessToken(this.props.authenticate.token)
     }
 

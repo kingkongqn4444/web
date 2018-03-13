@@ -69,10 +69,6 @@ class ProductAdd extends Component {
     }
 
     handleSearchProduct(title) {
-        // console.log(title);
-        // this.props.actions.product.requestList({
-        //     title
-        // }, 0, 20);
     }
 
     componentWillReceiveProps(nextProps) {

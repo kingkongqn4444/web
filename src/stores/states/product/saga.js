@@ -1,14 +1,18 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { call, put, takeLatest, all } from 'redux-saga/effects'
 
 import Types from './';
 import API from "../../../utils/api";
 
-function* submitOrder(action) {
+function* addProduct(action) {
     let response = yield call(API.request, action.payload);
-    yield put({ ...action, type: Types.SUBMIT_ORDER_SUCCESS, response });
+    yield put({ ...action, type: Types.ADD_PRODUCT_SUCCESS, response });
 }
 
 
+
 export default function* saga() {
-    yield takeLatest(Types.SUBMIT_ORDER, submitOrder);
+    yield all([
+        yield takeLatest(Types.ADD_PRODUCT, addProduct)
+    ])
+
 }

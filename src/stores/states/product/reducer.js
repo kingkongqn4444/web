@@ -2,17 +2,23 @@ import Types from './';
 import createReducer from '../';
 
 const INIT_STATE = ({
-    submitOrder: [],
-    addCustomer: [],
+    addProduct: []
 });
 
 export default createReducer(INIT_STATE, {
 
-
-    [Types.SUBMIT_ORDER_SUCCESS]: (state, action) => {
+    [Types.ADD_PRODUCT]: (state, action) => {
         return {
             ...state,
-            submitOrder: action.response
+            addProduct: action.response
+        };
+    },
+
+    [Types.ADD_PRODUCT_SUCCESS]: (state, action) => {
+        console.log('asdajdsiajdasdiasdasdasdsdfdgfdg', action)
+        return {
+            ...state,
+            addProduct: action.response
         };
     },
 });

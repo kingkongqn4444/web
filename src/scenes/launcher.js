@@ -17,11 +17,11 @@ class Launcher extends Component {
 
     async componentWillMount() {
         await this.props.actions.storage.getAccessToken();
+        await this.props.actions.authenticate.getAllProduct()
         let navigations = Configs['navigation'];
         let res = {};
         this.populate(navigations.items, [], res);
         this.props.actions.app.setNavigation(res);
-        console.log('asdasdasdasdasdasdasda', this.props.storage.token)
     }
 
     componentWillReceiveProps(nextProps) {
@@ -30,6 +30,11 @@ class Launcher extends Component {
                 this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
             }
         }
+        // if (nextProps.authenticate.allProduct
+        //     && nextProps.authenticate.allProduct.status == 200 && !nextProps.authenticate.flagListProduct) {
+        //     this.props.actions.authenticate.setFlagSetListProduct(true)
+        //     this.props.actions.storage.setListProduct(nextProps.authenticate.allProduct.data)
+        // }
     }
 
     render() {

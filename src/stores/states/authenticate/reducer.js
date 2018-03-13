@@ -5,7 +5,6 @@ const INIT_STATE = ({
     login: '',
     token: "",
     listProduct: [],
-    submitOrder: [],
     allProduct: [],
     allCustomer: [],
     listOrder: [],
@@ -16,7 +15,8 @@ const INIT_STATE = ({
     editOrder: [],
     addOutlet: [],
     listOutlet: [],
-    register: []
+    register: [],
+    flagListProduct: true
 });
 
 export default createReducer(INIT_STATE, {
@@ -46,41 +46,17 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.REGISTER_SUCCESS]: (state, action) => {
-        // console.log('asdasdasdasdasdasdasdasdasdasdasd', action)
         return {
             ...state,
             register: action.response,
         };
     },
 
-    [Types.GET_LIST_PRODUCT_SUCCESS]: (state, action) => {
-
-        return {
-            ...state,
-            listProduct: action.response,
-        };
-    },
-
-
-    [Types.SUBMIT_ORDER]: (state, action) => {
-
-        return {
-            ...state,
-            submitOrder: action.response
-        };
-    },
-
-    [Types.SUBMIT_ORDER_SUCCESS]: (state, action) => {
-        return {
-            ...state,
-            submitOrder: action.response
-        };
-    },
-
     [Types.GET_ALL_PRODUCT]: (state, action) => {
         return {
             ...state,
-            allProduct: action.response
+            allProduct: action.response,
+            flagListProduct: false
         };
     },
 
@@ -113,7 +89,6 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.GET_LIST_ORDER_SUCCESS]: (state, action) => {
-        console.log('asdasdasdasdasdasdasdnajkdakdasdasda', action)
         return {
             ...state,
             listOrder: action.response
@@ -179,6 +154,7 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.ADD_OUTLET_SUCCESS]: (state, action) => {
+        console.log('asdjashdashdaksdhajsdhakdhasd', action)
         return {
             ...state,
             addOutlet: action.response
@@ -186,7 +162,7 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.LIST_OUTLET_SUCCESS]: (state, action) => {
-        console.log('asdasdjaskdjaskdhjashdjkas', action)
+        console.log('sdasdasdjkabsdajsdbajskdbajdbahsd', action)
         return {
             ...state,
             listOutlet: action.response
@@ -194,6 +170,11 @@ export default createReducer(INIT_STATE, {
     },
 
 
-
+    [Types.SET_FLAG_SET_LIST_PRODUCT]: (state, action) => {
+        return {
+            ...state,
+            flagListProduct: action.payload,
+        };
+    },
 
 });

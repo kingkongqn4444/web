@@ -4,9 +4,6 @@ export default keymirror({
     LOGIN: null,
     LOGIN_SUCCESS: null,
 
-    GET_LIST_PRODUCT: null,
-    GET_LIST_PRODUCT_SUCCESS: null,
-
     SUBMIT_ORDER: null,
     SUBMIT_ORDER_SUCCESS: null,
 
@@ -42,5 +39,9 @@ export default keymirror({
     LIST_OUTLET_SUCCESS: null,
 
     REGISTER: null,
-    REGISTER_SUCCESS: null
+    REGISTER_SUCCESS: null,
+
+
+
+    SET_FLAG_SET_LIST_PRODUCT: null
 }, "AUTHENTICATE_");

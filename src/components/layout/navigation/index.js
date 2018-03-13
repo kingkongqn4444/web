@@ -15,17 +15,17 @@ export default class Navigation extends React.Component {
     render() {
         return (
             <aside id="left-panel">
-                <LoginInfo/>
+                <LoginInfo />
                 <nav>
                     <NavMenu
-                        openedSign={'<i class="fa fa-minus-square-o"></i>'}
-                        closedSign={'<i class="fa fa-plus-square-o"></i>'}
+                        openedSign={'<i class="	glyphicon glyphicon-menu-down"></i>'}
+                        closedSign={'<i class="glyphicon glyphicon-menu-right"></i>'}
                         items={this.props.items}
                     >
                         {/* Nhà thuốc */}
                     </NavMenu>
                 </nav>
-                <MinifyMenu/>
+                <MinifyMenu />
             </aside>
         )
     }

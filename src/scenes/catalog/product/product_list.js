@@ -21,7 +21,8 @@ class ProductList extends Component {
             data: [],
             listCustomer: [],
             modalIsOpen: false,
-            modalDeleteCustomer: true
+            modalDeleteCustomer: false,
+            idDelete: 0,
         };
         this.detailCustomer = this.detailCustomer.bind()
     }
@@ -60,6 +61,11 @@ class ProductList extends Component {
             this.setState({
                 modalIsOpen: true,
                 data: nextProps.authenticate.detailCustomer.data
+            })
+        }
+        if (nextProps.authenticate.deleteCustomer && nextProps.authenticate.deleteCustomer.status == 200) {
+            this.setState({
+                modalDeleteCustomer: false,
             })
         }
     }
@@ -112,8 +118,12 @@ class ProductList extends Component {
                                                     <th>{item.phone}</th>
                                                     <th>{item.note}</th>
                                                     <th>
-                                                        <button type='button' onClick={() => this.detailCustomer(item.id)}>Chi tiết</button>
-                                                        <button type='button' onClick={() => this.deleteCustomer(item.id)}>Xóa</button>
+                                                        <button className="btn btn-success col-xs-offset-1" type='button' onClick={() => this.detailCustomer(item.id)}>Chi tiết</button>
+                                                        <button className="btn btn-info col-xs-offset-1" onClick={() => this.setState({
+                                                            modalDeleteCustomer: true,
+                                                            idDelete: item.id
+                                                        })
+                                                        }>Xóa</button>
                                                     </th>
                                                 </tr>
                                             ) : null}
@@ -241,8 +251,10 @@ class ProductList extends Component {
                 >
                     <div>
                         <h4>Bạn muốn xóa người này khỏi danh sách</h4>
-                        <button>Đồng Ý</button>
-                        <button>Hủy bỏ</button>
+                        <div className="btn-confirm-customer">
+                            <button className="btn btn-success col-xs-offset-2" onClick={() => this.deleteCustomer(this.state.idDelete)}>Đồng Ý</button>
+                            <button className="btn btn-danger col-xs-offset-3" onClick={() => this.setState({ modalDeleteCustomer: false })}>Hủy bỏ</button>
+                        </div>
                     </div>
                 </Modal>
             </div>

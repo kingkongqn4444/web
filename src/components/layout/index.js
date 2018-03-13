@@ -13,7 +13,7 @@ export default class Layout extends React.Component {
     render() {
         return (
             <div>
-                <Header/>
+                <Header logout={() => this.props.logout()} />
                 <Navigation items={Configs.navigation} />
                 <div id="main" role="main">
                     <Ribbon />

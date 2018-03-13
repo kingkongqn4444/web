@@ -3,24 +3,18 @@ import Configs from "../../../configs";
 
 
 
-
-
-export function submitOrder(token, customer_id = 0, name, address, phone, delivery_date, note, po_product) {
+export function addProduct(token, name, price, uom) {
     return {
-        type: Types.SUBMIT_ORDER,
+        type: Types.ADD_PRODUCT,
         payload: {
-            api: 'https://medicine-api.herokuapp.com/api/v1/order',
+            token: token,
+            api: 'http://medicine-api.herokuapp.com/api/v1/product',
             method: 'POST',
             payload: {
-                customer_id: customer_id,
-                name: name,
-                address: address,
-                phone: phone,
-                delivery_date: delivery_date,
-                note: note,
-                po_product: po_product
+                "name": name,
+                "price": price,
+                "uom": uom
             }
-        },
-        token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWVkaWNpbmUtYXBpLmhlcm9rdWFwcC5jb20vYXBpL3YxL2xvZ2luIiwiaWF0IjoxNTE4MTY5NDU0LCJleHAiOjIxNzUxODE2OTQ1NCwibmJmIjoxNTE4MTY5NDU0LCJqdGkiOiJHcnptd3FMZkFKcFVRdXRpIiwic3ViIjo2LCJwcnYiOiJhOTU5Njc4ZWI3M2Q3Njg2MGFlZWFmOTg5ZDU1NjFlMDczZTFlNzhlIn0.vaLUliu6qz0F8SAzFDMp15gB7_Ds5DzzyOPlmaA0jIA',
+        }
     }
 }

@@ -64,21 +64,6 @@ export function listOutler(token) {
 }
 
 
-
-
-export function getListProduct() {
-    return {
-        type: Types.GET_LIST_PRODUCT,
-        payload: {
-            api: 'https://medicine-api.herokuapp.com/api/v1/products',
-            method: 'GET',
-            token: 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwOi8vbWVkaWNpbmUtYXBpLmhlcm9rdWFwcC5jb20vYXBpL3YxL2xvZ2luIiwiaWF0IjoxNTE4MTY5NDU0LCJleHAiOjIxNzUxODE2OTQ1NCwibmJmIjoxNTE4MTY5NDU0LCJqdGkiOiJHcnptd3FMZkFKcFVRdXRpIiwic3ViIjo2LCJwcnYiOiJhOTU5Njc4ZWI3M2Q3Njg2MGFlZWFmOTg5ZDU1NjFlMDczZTFlNzhlIn0.vaLUliu6qz0F8SAzFDMp15gB7_Ds5DzzyOPlmaA0jIA',
-            payload: {
-            }
-        }
-    }
-}
-
 export function getAllCustomer(token) {
     return {
         type: Types.GET_ALL_CUSTOMER,
@@ -138,11 +123,10 @@ export function addCustomer(token, name, address, email, phone, note) {
     }
 }
 
-export function getAllProduct(token) {
+export function getAllProduct() {
     return {
         type: Types.GET_ALL_PRODUCT,
         payload: {
-            token: token,
             api: 'http://medicine-api.herokuapp.com/api/v1/productAll',
             method: 'GET',
             payload: {
@@ -150,6 +134,7 @@ export function getAllProduct(token) {
         }
     }
 }
+
 
 export function getDetailOrder(token, id) {
     return {
@@ -197,22 +182,10 @@ export function editOrder(token, id, name, address, phone, note, po_product) {
     }
 }
 
-export function submitOrder(token, customer_id = 0, name, address, phone, delivery_date, note, po_product) {
+
+export function setFlagSetListProduct(bool = true) {
     return {
-        type: Types.SUBMIT_ORDER,
-        payload: {
-            api: 'https://medicine-api.herokuapp.com/api/v1/order',
-            method: 'POST',
-            token: token,
-            payload: {
-                customer_id: customer_id,
-                name: name,
-                address: address,
-                phone: phone,
-                delivery_date: delivery_date,
-                note: note,
-                po_product: JSON.stringify(po_product)
-            }
-        }
+        type: Types.SET_FLAG_SET_LIST_PRODUCT,
+        payload: bool
     }
 }

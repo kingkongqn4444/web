@@ -6,7 +6,7 @@ import Connect from '../../../stores/connect';
 import Utils, {
     LINK
 } from "../../../utils";
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import JarvisWidget from '../../../components/jarvis_widget';
 
 class DeliveryList extends Component {
@@ -22,29 +22,9 @@ class DeliveryList extends Component {
     }
     componentWillMount() {
 
-        this._requestList();
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.router.location.search !== this.props.router.location.search) {
-            this.query = Utils.parseQuery(nextProps.router.location.search);
-            this.setState({
-                title: this.query['title'],
-                page: parseInt(this.query['p']) || 1,
-                limit: this.query['l'] || 20,
-            }, () => {
-                this._requestList();
-            })
 
-        }
-
-    }
-    _requestList() {
-        // let query = Utils.parseQuery(queryParam);
-        // let limit = query.l || 20;
-        // let page = query.p || 1;
-        let offset = (this.state.page - 1) * this.state.limit;
-        let filters = {};
-        this.state.title && (filters['title'] = this.state.title);
     }
 
     render() {
@@ -68,7 +48,7 @@ class DeliveryList extends Component {
                 </div>
                 <JarvisWidget editbutton={false} custombutton={false}>
                     <header>
-                        <span className="widget-icon"> <i className="fa fa-edit"/> </span>
+                        <span className="widget-icon"> <i className="fa fa-edit" /> </span>
                     </header>
                     <div>
                         {/* widget content */}
@@ -78,10 +58,10 @@ class DeliveryList extends Component {
                                     <section className="col col-4">
                                         <label className="input">
                                             <input type="text" placeholder="Tên đơn vị vận chuyển"
-                                                   value={this.state.title}
-                                                   className="form-control"
-                                                   name="title"
-                                                   onChange={e => this.setState({title: e.target.value})}/>
+                                                value={this.state.title}
+                                                className="form-control"
+                                                name="title"
+                                                onChange={e => this.setState({ title: e.target.value })} />
                                         </label>
                                     </section>
 
@@ -124,7 +104,7 @@ class DeliveryList extends Component {
                 </JarvisWidget>
                 <JarvisWidget editbutton={false} color="darken">
                     <header>
-                        <span className="widget-icon"> <i className="fa fa-table"/> </span>
+                        <span className="widget-icon"> <i className="fa fa-table" /> </span>
                         <h2>Danh sách nhà cung cấp</h2>
                     </header>
                     <div>
@@ -134,30 +114,30 @@ class DeliveryList extends Component {
 
                                 <table className="table table-bordered table-striped table-hover">
                                     <thead>
-                                    <tr>
-                                        <th>STT</th>
-                                        <th>Tên đơn vị giao hàng</th>
-                                        <th>Chi phí vận chuyển</th>
-                                        <th>Hoạt động</th>
-                                        <th>Ngày tạo</th>
-                                        <th></th>
-                                    </tr>
+                                        <tr>
+                                            <th>STT</th>
+                                            <th>Tên đơn vị giao hàng</th>
+                                            <th>Chi phí vận chuyển</th>
+                                            <th>Hoạt động</th>
+                                            <th>Ngày tạo</th>
+                                            <th></th>
+                                        </tr>
                                     </thead>
                                     <tbody>
-                                    {
-                                        this.props.delivery.list.length>0&&this.props.delivery.list.map((delivery,index)=>
-                                            <tr key={"delivery_list_"+delivery.deliveryId}>
-                                                <td>{index}</td>
-                                                <td><Link to={Utils.link(LINK.DELIVERY,delivery.deliveryId)}>{delivery.title}</Link></td>
-                                                <td>{delivery.fee}</td>
-                                                <td>{
-                                                    delivery.isActive?<label className="label label-success">Đang hoạt động</label>:
-                                                        <label className="label label-danger">Đóng</label>
-                                                }</td>
-                                                <td>{Utils.formatDate(delivery.createAt)}</td>
-                                                <td ><span className="btn btn-danger center-block">Xóa</span></td>
-                                            </tr>)
-                                    }
+                                        {
+                                            this.props.delivery.list.length > 0 && this.props.delivery.list.map((delivery, index) =>
+                                                <tr key={"delivery_list_" + delivery.deliveryId}>
+                                                    <td>{index}</td>
+                                                    <td><Link to={Utils.link(LINK.DELIVERY, delivery.deliveryId)}>{delivery.title}</Link></td>
+                                                    <td>{delivery.fee}</td>
+                                                    <td>{
+                                                        delivery.isActive ? <label className="label label-success">Đang hoạt động</label> :
+                                                            <label className="label label-danger">Đóng</label>
+                                                    }</td>
+                                                    <td>{Utils.formatDate(delivery.createAt)}</td>
+                                                    <td ><span className="btn btn-danger center-block">Xóa</span></td>
+                                                </tr>)
+                                        }
                                     </tbody>
 
                                 </table>

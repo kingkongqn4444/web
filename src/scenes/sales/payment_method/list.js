@@ -24,44 +24,15 @@ class PaymentMethodList extends Component {
     }
     componentWillMount() {
 
-        this._requestList();
     }
+    
     componentWillReceiveProps(nextProps) {
-
-        if (nextProps.router.location.search !== this.props.router.location.search) {
-
-            this.query = Utils.parseQuery(nextProps.router.location.search);
-            this.setState({
-                data:nextProps.paymentMethod.list,
-                title: this.query['title'],
-                page: parseInt(this.query['p']) || 1,
-                limit: this.query['l'] || 20,
-            }, () => {
-                this._requestList();
-            })
-
-        }
-        if (this.props.paymentMethod.status !== nextProps.paymentMethod.status) {
-            console.log(nextProps.paymentMethod.status)
-            switch (nextProps.paymentMethod.status) {
-                case 3 :
-                    Utils.bigBox("Thành công", "Bạn đã xoá thành công", BIGBOX.SUCESS);
-                    this._requestList();
-                    break;
-            }
-        }
-
     }
+
     handleDelete(id){
         Utils.confirmBox("Xoá nội dung", "Bạn có muốn xoá nội dung này", () => {
             this.props.actions.paymentMethod.requestDelete(id, this.props.storage.token);
         })
-    }
-    _requestList() {
-        let offset = (this.state.page - 1) * this.state.limit;
-        let filters = {};
-        this.state.title && (filters['title'] = this.state.title);
-        this.props.actions.paymentMethod.requestList(filters, offset, this.state.limit);
     }
 
     render() {

@@ -38,42 +38,12 @@ class VendorAdd extends Component {
             brefStock: ""
 
         }
-        if (this.props.id) {
-            this.props.actions.vendor.requestDetail(this.props.id);
-        }
     }
     componentWillReceiveProps(nextProps) {
-        if (nextProps.vendor.detail !== this.props.vendor.detail) {
-            let vendor = nextProps.vendor.detail;
-            // console.log(this.props.vendor.detail.category[0]);
-            this.setState({
-                title: vendor.title,
-                slug: vendor.slug,
-                geoLocation: vendor.geoLocation.parents.length>0?vendor.geoLocation.parents[0]:'',
-                isActive:vendor.isActive,
-                delivery:vendor.delivery,
-                status:vendor.status,
-                metadata:vendor.metadata,
-                paymentMethod:vendor.paymentMethod
-            });
-        }
     }
 
-    onSubmit() {
-        // e.preventDefault();
-        let form = document.querySelector('#smart-form');
-        var obj = serialize(form, {hash: true});
-        console.log(obj)
-        return false;
-    }
-
-    onWizardComplete(data) {
-        console.log('fuelux wizard submit stuff', data);
-
-    }
 
     render() {
-console.log(this.props.vendor.detail)
         return (
             <div>
                 <div id="content">
@@ -150,52 +120,6 @@ console.log(this.props.vendor.detail)
                                                                data-bv-notempty-message="Slug không được bỏ trống"/>
                                                     </label>
                                                 </section>
-                                                {/*<section className="form-group">*/}
-                                                    {/*<label className="label">Logo</label>*/}
-                                                    {/*<label className="input">*/}
-                                                        {/*<div className="input input-file">*/}
-                                                                                {/*<span className="button">*/}
-                                                                                    {/*<input type="file" id="file"*/}
-                                                                                           {/*name="photo"/>Browse</span>*/}
-                                                            {/*<input type="text"*/}
-                                                                   {/*placeholder="Include some files"*/}
-                                                                   {/*readOnly/>*/}
-                                                        {/*</div>*/}
-                                                    {/*</label>*/}
-                                                {/*</section>*/}
-
-                                                {/*<section className="form-group">*/}
-                                                    {/*<label*/}
-                                                        {/*className="label">Email</label>*/}
-                                                    {/*<div className="input">*/}
-                                                        {/*<input className="form-control" name="email"*/}
-                                                               {/*type="email" data-bv-emailaddress="true"*/}
-                                                               {/*data-bv-emailaddress-message="The input is not a valid email address"*/}
-                                                               {/*value={this.state.email}*/}
-                                                               {/*onChange={e => this.setState({email: e.target.value})}/>*/}
-                                                    {/*</div>*/}
-                                                {/*</section>*/}
-
-                                                {/*<section className="form-group">*/}
-                                                    {/*<label className="label">Điện*/}
-                                                        {/*thoại</label>*/}
-                                                    {/*<label className="input">*/}
-                                                        {/*<input className="form-control"*/}
-                                                               {/*name="mobilePhone" type="text"*/}
-                                                               {/*value={this.state.sdt}*/}
-                                                               {/*onChange={e => this.setState({sdt: e.target.value})}/>*/}
-                                                    {/*</label>*/}
-                                                {/*</section>*/}
-                                                {/*<section className="form-group">*/}
-                                                    {/*<label className="label">Địa*/}
-                                                        {/*chỉ</label>*/}
-                                                    {/*<div className="input">*/}
-                                                        {/*<input className="form-control" name="address"*/}
-                                                               {/*type="text"*/}
-                                                               {/*value={this.state.address}*/}
-                                                               {/*onChange={e => this.setState({address: e.target.value})}/>*/}
-                                                    {/*</div>*/}
-                                                {/*</section>*/}
                                                 <section className="form-group">
                                                     <label className="label">Khu
                                                         vực</label>

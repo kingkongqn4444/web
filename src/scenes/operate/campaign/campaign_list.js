@@ -10,16 +10,6 @@ import Utils, {
     LINK
 } from "../../../utils";
 import { Link } from 'react-router-dom';
-const stt = [
-    {
-        type: "new",
-        label: <span class="btn btn-primary center-block">mới</span>
-    },
-    {
-        type: "stop",
-        label: <span class="btn btn-danger center-block">dừng lại</span>
-    }
-]
 class CampaignList extends Component {
     constructor(props) {
         super(props);
@@ -33,43 +23,16 @@ class CampaignList extends Component {
     }
 
     componentWillMount() {
-        this._requestList();
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.router.location.search !== this.props.router.location.search) {
-            this.query = Utils.parseQuery(nextProps.router.location.search);
-            this.setState({
-                title: this.query['t'],
-                page: parseInt(this.query['p']) || 1,
-                limit: this.query['l'] || 20,
-            }, () => {
-                this._requestList();
-            })
-        }
-        if (this.props.campaign.status !== nextProps.campaign.status) {
-            switch (nextProps.campaign.status) {
-                case 10:
-                    Utils.bigBox("Thành công", "Bạn đã xoá thành công", BIGBOX.SUCESS);
-                    this._requestList();
-                    break;
-            }
-        }
-
     }
 
     handleDelete(campaignId) {
 
-        Utils.confirmBox("Xoá nội dung", "Bạn có muốn xoá nội dung này", () => {
-        })
 
     }
 
-    _requestList() {
-        let offset = (this.state.page - 1) * this.state.limit;
-        let filters = {};
-        this.state.title && (filters['title'] = this.state.title);
-    }
 
     render() {
         return (
@@ -113,17 +76,6 @@ class CampaignList extends Component {
                                                 </label>
                                             </div>
                                         </div>
-                                        {/*<div className="col col-xs-6">*/}
-                                        {/*<label className="select">*/}
-                                        {/*<select className="form-control" name="display"*/}
-                                        {/*value={this.state.isActive}*/}
-                                        {/*onChange={e => this.setState({isActive: parseInt(e.target.value)})}>*/}
-                                        {/*<option value={0}>Chọn hiển thị</option>*/}
-                                        {/*<option value={1}>Hiển thị</option>*/}
-                                        {/*<option value={2}>Ẩn</option>*/}
-                                        {/*</select><i/>*/}
-                                        {/*</label>*/}
-                                        {/*</div>*/}
                                     </div>
                                 </fieldset>
                                 <footer>
@@ -195,17 +147,6 @@ class CampaignList extends Component {
                         </div>
                     </div>
                 </JarvisWidget>
-                <Paginate
-                    activeClassName="active"
-                    initialPage={this.state.page - 1}
-                    forcePage={this.state.page - 1}
-                    containerClassName="pagination pagination-lg"
-                    pageCount={this.props.campaign.total / 20}
-                    hrefBuilder={(currentPage) => Utils.link(LINK.CAMPAIGN, "", {
-                        page: currentPage,
-                        title: this.state.title
-                    })}
-                />
             </div>
         )
     }

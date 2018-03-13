@@ -82,8 +82,11 @@ module.exports = (env) => {
         devServer: {
             historyApiFallback: true,
             contentBase: distRoot,
+            // contentBase: './',
             host: "0.0.0.0",
             port: 2300,
+            // host: "210.245.90.196",
+            // port: 21,
             // hot: true,
             compress: true,
             publicPath: '/',
@@ -136,6 +139,6 @@ module.exports = (env) => {
                 ]
                 :
                 []
-            )
+        )
     }
 };

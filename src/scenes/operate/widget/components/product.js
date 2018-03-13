@@ -17,18 +17,9 @@ class WidgetAddProduct extends Component {
     }
 
     handleSearchProduct(title) {
-        // console.log(title);
-        this.props.actions.product.requestList({
-            title
-        }, 0, 20);
     }
 
     componentWillReceiveProps(nextProps) {
-        if (nextProps.product.list !== this.props.product.list) {
-            setTimeout(() => {
-                $("#myModal").modal("show");
-            }, 500)
-        }
     }
 
     render() {

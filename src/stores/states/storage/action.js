@@ -12,7 +12,6 @@ export function removeAccessToken() {
 }
 
 export function setAccessToken(token) {
-    
     return {
         type: Types.SET_TOKEN,
         storage: {
@@ -25,18 +24,41 @@ export function setAccessToken(token) {
 }
 
 
-export function setListProduct(data) {
+export function setListBill(data) {
     return {
         type: Types.SET_DATA,
         storage: {
-            method: "setArray",
+            key: 'SAVE_DATA',
+            method: "setObject",
+            payload: {
+                data
+            }
+        }
+    }
+}
+
+export function getListBill() {
+    return {
+        type: Types.GET_DATA,
+        storage: {
+            key: 'SAVE_DATA',
+            method: "getObject",
+            payload: "data"
+        }
+    }
+}
+
+export function clearListBill(data) {
+    return {
+        type: Types.REMOVE_DATA,
+        storage: {
+            method: "remove",
             payload: {
                 // token,
             }
         }
     }
 }
-
 
 export function getAccessToken() {
     return {
@@ -47,3 +69,30 @@ export function getAccessToken() {
         }
     }
 }
+
+
+// list all product
+export function setListProduct(data) {
+    return {
+        type: Types.SET_LIST_ALL_PRODUCT,
+        storage: {
+            key: 'LIST_ALL_PRODUCT',
+            method: "setArray",
+            payload: {
+                data
+            }
+        }
+    }
+}
+
+export function getListProduct() {
+    return {
+        type: Types.GET_LIST_ALL_PRODUCT,
+        storage: {
+            key: 'LIST_ALL_PRODUCT',
+            method: "getArray",
+            payload: "data"
+        }
+    }
+}
+
