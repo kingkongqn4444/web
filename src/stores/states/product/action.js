@@ -3,11 +3,10 @@ import Configs from "../../../configs";
 
 
 
-export function addProduct(token, name, price, uom) {
+export function addProduct(name, price, uom) {
     return {
         type: Types.ADD_PRODUCT,
         payload: {
-            token: token,
             api: 'http://medicine-api.herokuapp.com/api/v1/product',
             method: 'POST',
             payload: {

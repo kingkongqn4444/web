@@ -357,12 +357,15 @@ class WidgetList extends Component {
     }
 
     onForCus = () => {
-        // if (this._input.value != "") {
-        // this.setState({ tenthuoc: this._input.value })
-        // }
+
         this._input.focus();
     }
 
+    checkThemThuocMoi() {
+        if (this._input.value != "") {
+            console.log('asdadsasdasasdasdasda', this._input.value)
+        }
+    }
 
 
     deleteThuoc(index) {
@@ -544,7 +547,7 @@ class WidgetList extends Component {
                                     <div className="col col-md-2 col-sm-2 col-xs-2">
                                         <label className="input">
                                             <h3>Số lượng:</h3>
-                                            <input type="number" name="t" placeholder="Số lượng" id="one"
+                                            <input type="number" name="t" placeholder="Số lượng" id="one" onFocus={() => this.checkThemThuocMoi()}
                                                 value={this.state.soluong}
                                                 onChange={e => this.setState({ soluong: e.target.value, thanhtien: this.state.gia * e.target.value })}
                                             />

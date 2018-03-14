@@ -15,7 +15,7 @@ export default createReducer(INIT_STATE, {
     },
 
     [Types.ADD_PRODUCT_SUCCESS]: (state, action) => {
-        console.log('asdajdsiajdasdiasdasdasdsdfdgfdg', action)
+        console.log('asdadkasdjkasdjkadasdasdasdas', action)
         return {
             ...state,
             addProduct: action.response

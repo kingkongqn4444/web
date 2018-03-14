@@ -1,3 +1,4 @@
+
 const path = require('path');
 const webpack = require('webpack');
 const prod = process.argv.indexOf('-p') !== -1;
@@ -19,7 +20,7 @@ module.exports = (env) => {
     return {
         context: srcRoot,
         entry: {
-            main: ["babel-polyfill", path.resolve(appRoot, 'index.js')],
+            main: ["babel-polyfill", path.resolve('src/app', 'index.js')],
             vendor: [
                 'react', 'react-dom', 'jquery', 'moment',
                 'react-bootstrap', 'lodash'
@@ -30,8 +31,6 @@ module.exports = (env) => {
             filename: isDev ? 'js/[name].bundle.js' : 'js/[name].[hash].bundle.js',
             sourceMapFilename: isDev ? 'js/[name].bundle.map' : 'js/[name].[chunkhash].bundle.map',
             chunkFilename: isDev ? 'js/[id].chunk.js' : 'js/[id].[chunkhash].chunk.js',
-
-
             publicPath: '/'
         },
         module: {
@@ -82,12 +81,12 @@ module.exports = (env) => {
         devServer: {
             historyApiFallback: true,
             contentBase: distRoot,
-            // contentBase: './',
-            // host: "0.0.0.0",
-            // port: 2300,
-            host: "210.245.90.196",
-            port: 21,
-            hot: true,
+            contentBase: './',
+            host: "0.0.0.0",
+            port: 2300,
+            // host: "210.245.90.196",
+            // port: 21,
+            // hot: true,
             compress: true,
             publicPath: '/',
             stats: "minimal"
@@ -142,3 +141,4 @@ module.exports = (env) => {
         )
     }
 };
+
