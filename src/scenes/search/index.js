@@ -16,15 +16,15 @@ class Search extends Component {
     }
 
     render() {
-        let child = <div/>;
+        let child = <div />;
         switch (this.props.match.params.action) {
-            case "gio-hang" :
-                child = <Cart/>;
+            case "gio-hang":
+                child = <Invoice />;
                 break;
-            case "don-hang" :
-                child = this.props.match.params.id?<InvoiceDetail id={this.props.match.params.id}/>:<Invoice/>;
-                break;
-
+            case "don-hang":
+                child = <Invoice />;
+            case "chi-tiet-khach-hang":
+                child = this.props.match.params.id ? <Cart id={this.props.match.params.id} /> : <Cart />;
         }
         return (
             <Layout>

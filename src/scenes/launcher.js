@@ -1,64 +1,57 @@
-import React, {
-    Component
-} from 'react';
+import React, { Component } from "react";
 
-import Connect from '../stores/connect';
+import Connect from "../stores/connect";
 
-import Utils, {
-    LINK
-} from '../utils'
+import Utils, { LINK } from "../utils";
 
-import Configs from '../configs';
+import Configs from "../configs";
 
 class Launcher extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    async componentWillMount() {
-        await this.props.actions.storage.getAccessToken();
-        await this.props.actions.authenticate.getAllProduct()
-        let navigations = Configs['navigation'];
-        let res = {};
-        this.populate(navigations.items, [], res);
-        this.props.actions.app.setNavigation(res);
-    }
+  async componentWillMount() {
+    await this.props.actions.storage.getAccessToken();
+    await this.props.actions.authenticate.getAllProduct();
+    await this.props.actions.authenticate.getAllCustomer(
+      this.props.storage.token
+    );
+    let navigations = Configs["navigation"];
+    let res = {};
+    this.populate(navigations.items, [], res);
+    this.props.actions.app.setNavigation(res);
+  }
 
-    componentWillReceiveProps(nextProps) {
-        if (this.props.storage.token !== nextProps.storage.token) {
-            if (nextProps.storage.token === "") {
-                this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
-            }
-        }
-        // if (nextProps.authenticate.allProduct
-        //     && nextProps.authenticate.allProduct.status == 200 && !nextProps.authenticate.flagListProduct) {
-        //     this.props.actions.authenticate.setFlagSetListProduct(true)
-        //     this.props.actions.storage.setListProduct(nextProps.authenticate.allProduct.data)
-        // }
+  componentWillReceiveProps(nextProps) {
+    if (this.props.storage.token !== nextProps.storage.token) {
+      if (nextProps.storage.token === "") {
+        this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
+      }
     }
+  }
 
-    render() {
-        return this.props.children;
+  render() {
+    return this.props.children;
+  }
+
+  populate(list, parents = [], res = {}) {
+    let p = [];
+    for (let i in list) {
+      let detail = list[i];
+      if (detail.route) {
+        res[detail.route] = {
+          ...detail,
+          parents: parents,
+        };
+      } else {
+        p = parents.slice();
+        p.push(detail);
+        this.populate(detail.items, p, res);
+        p = [];
+      }
     }
-
-
-    populate(list, parents = [], res = {}) {
-        let p = [];
-        for (let i in list) {
-            let detail = list[i];
-            if (detail.route) {
-                res[detail.route] = {
-                    ...detail,
-                    parents: parents
-                };
-            } else {
-                p = parents.slice();
-                p.push(detail);
-                this.populate(detail.items, p, res);
-                p = [];
-            }
-        }
-    }
+  }
 }
 
 export default Connect(Launcher);

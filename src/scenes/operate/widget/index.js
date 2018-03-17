@@ -15,7 +15,6 @@ import Add from './widget_add';
 class Widget extends Component {
     constructor(props) {
         super(props);
-        this.logout = this.logout.bind()
     }
 
     render() {
@@ -29,15 +28,10 @@ class Widget extends Component {
         }
 
         return (
-            <Layout logout={() => this.logout()}>
+            <Layout>
                 {child}
             </Layout>
         )
-    }
-
-    logout() {
-        this.props.actions.storage.removeAccessToken()
-        this.props.actions.app.navigate(Utils.link(LINK.LOGIN));
     }
 }
 

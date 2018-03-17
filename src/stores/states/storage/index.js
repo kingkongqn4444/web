@@ -1,7 +1,7 @@
-import keymirror from '../../../utils/keymirror';
+import keymirror from "../../../utils/keymirror";
 
-export default keymirror({
-
+export default keymirror(
+  {
     SET_TOKEN: null,
     GET_TOKEN: null,
     REMOVE_TOKEN: null,
@@ -12,5 +12,7 @@ export default keymirror({
     SET_LIST_ALL_PRODUCT: null,
     GET_LIST_ALL_PRODUCT: null,
 
-  
-}, "STORAGE_");
+    REMOVE_LIST_DATA: null,
+  },
+  "STORAGE_"
+);

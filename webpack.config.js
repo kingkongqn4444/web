@@ -1,4 +1,3 @@
-
 const path = require('path');
 const webpack = require('webpack');
 const prod = process.argv.indexOf('-p') !== -1;
@@ -20,7 +19,7 @@ module.exports = (env) => {
     return {
         context: srcRoot,
         entry: {
-            main: ["babel-polyfill", path.resolve('src/app', 'index.js')],
+            main: ["babel-polyfill", path.resolve('src/', 'index.js')],
             vendor: [
                 'react', 'react-dom', 'jquery', 'moment',
                 'react-bootstrap', 'lodash'
@@ -82,9 +81,9 @@ module.exports = (env) => {
             historyApiFallback: true,
             contentBase: distRoot,
             contentBase: './',
-            host: "0.0.0.0",
-            port: 2300,
-            // host: "210.245.90.196",
+            // host: "0.0.0.0",
+            // port: 2300,
+            // host: "ppms.vn",
             // port: 21,
             // hot: true,
             compress: true,

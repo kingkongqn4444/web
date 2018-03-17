@@ -28,9 +28,8 @@ class SearchInvoice extends Component {
     }
 
     render() {
-
-
-        return (<div id="content">
+        return (
+        <div id="content">
             <div className="row">
                 <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
                     <h1 className="page-title txt-color-blueDark">
@@ -134,7 +133,8 @@ class SearchInvoice extends Component {
                     </div>
                 </div>
             </JarvisWidget>
-        </div>)
+        </div>
+        )
     }
 }
 

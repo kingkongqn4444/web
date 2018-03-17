@@ -88,7 +88,7 @@ class ProductList extends Component {
                                             <h3>Số điện thoại:</h3>
                                             <input
                                                 type="number" name="t" placeholder="Số điện thoại" id="one"
-                                                defaultValue={this.state.phone}
+                                                value={this.state.phone}
                                                 onChange={e => this.setState({ phone: e.target.value })}
                                             />
                                         </label>
@@ -99,7 +99,7 @@ class ProductList extends Component {
                                             <h3>Email</h3>
                                             <input
                                                 type="text" name="t" placeholder="email" id="one"
-                                                defaultValue={this.state.email}
+                                                value={this.state.email}
                                                 onChange={e => this.setState({ email: e.target.value })}
                                             />
                                         </label>
@@ -112,7 +112,7 @@ class ProductList extends Component {
                                         <label className="input">
                                             <h3>Địa chỉ :</h3>
                                             <input type="text" name="t" placeholder="Địa chỉ"
-                                                defaultValue={this.state.address}
+                                                value={this.state.address}
                                                 onChange={e => this.setState({ address: e.target.value })}
                                             />
                                         </label>
@@ -124,7 +124,7 @@ class ProductList extends Component {
                                         <label className="input">
                                             <h3>Ghi chú :</h3>
                                             <input type="text" name="t" placeholder="Ghi chú" id="one"
-                                                defaultValue={this.state.note}
+                                                value={this.state.note}
                                                 onChange={e => this.setState({ note: e.target.value })}
                                             />
                                         </label>

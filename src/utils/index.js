@@ -8,6 +8,7 @@ const LINK = {
     ACCOUNT: "tai-khoan",
     PRODUCT: "san-pham",
     ADD_CUSTOMER: 'them-khach-hang',
+    DETAIL_CUSTOMER: 'chi-tiet-khach-hang',
     DASHBOARD: "dashboard",
     CATEGORY: "danh-muc",
     CAMPAIGN: "chien-dich-khuyen-mai",
@@ -113,6 +114,26 @@ export default class {
                 break;
             case "chien-dich-khuyen-mai":
                 prefix = '/van-hanh/van-hanh/chien-dich-khuyen-mai/';
+                if (query) {
+                    let qs = {};
+                    let page = query.page;
+                    if (page) {
+                        qs['p'] = page;
+                    }
+                    let title = query.title;
+                    if (title) {
+                        qs['t'] = title;
+                    }
+
+                    let limit = query.limit;
+                    if (limit) {
+                        qs['l'] = limit;
+                    }
+                    suffix += "?" + querystring.stringify(qs);
+                }
+                break;
+            case "chi-tiet-khach-hang":
+                prefix = '/tra-cuu/chi-tiet-khach-hang/'
                 if (query) {
                     let qs = {};
                     let page = query.page;

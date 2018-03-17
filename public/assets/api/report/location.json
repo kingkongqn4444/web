@@ -9,11 +9,11 @@
           "branch": [
             {
               "id": "23123awedwq",
-              "name": "CoopMark Cống quỳnh 1"
+              "name": "Cửa hàng thuốc 1"
             },
             {
               "id": "23123awedw3",
-              "name": "CoopMark Cống quỳnh 2"
+              "name": "Cửa hàng thuốc 2"
             }
           ]
         },
@@ -23,7 +23,7 @@
           "branch": [
             {
               "id": "23123awe6wq",
-              "name": "CoopMark quận 9"
+              "name": "Cửa hàng thuốc 2"
             }
           ]
         }
@@ -39,11 +39,11 @@
           "branch": [
             {
               "id": "23123awedwq",
-              "name": "CoopMark Hoan Kiem 1"
+              "name": "Cửa hàng thuốc 2"
             },
             {
               "id": "23123awedw3",
-              "name": "CoopMark Hoan Kiem 2"
+              "name": "Cửa hàng thuốc 2"
             }
           ]
         }
