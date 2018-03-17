@@ -19,37 +19,37 @@
  */
 
 .select2-selection__choice {
-    padding: 1px 28px 1px 8px;
-    margin: 4px 0 3px 5px;
+  padding: 1px 28px 1px 8px;
+  margin: 4px 0 3px 5px;
 }
 
 .select2-selection__choice__remove {
-    padding: 3px 4px 3px 6px;
-    /*margin : 0;*/
+  padding: 3px 4px 3px 6px;
+  /*margin : 0;*/
 }
 
-#search{
-    padding-bottom: 20px;
+#search {
+  padding-bottom: 20px;
 }
 
 .input-order {
-    padding: 10px;
+  padding: 10px;
 }
 
 .text-input {
-    border-radius: 5px
+  border-radius: 5px;
 }
 
 .button-add {
-    margin-top:40px;
-    align-self: center;
+  margin-top: 40px;
+  align-self: center;
 }
 
 div.custom-table-bill {
-    height: 300px;
-    overflow: auto;
+  height: 300px;
+  overflow: auto;
 }
 
 div.btn-confirm-customer {
-    margin-top: 20px;
+  margin-top: 20px;
 }

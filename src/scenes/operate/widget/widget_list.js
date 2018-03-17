@@ -302,7 +302,7 @@ class WidgetList extends Component {
           // this.props.actions.storage.clearListBill();
           that.setState({
             loading: false,
-            bill : []
+            bill: [],
           });
         }
       },
@@ -379,7 +379,6 @@ class WidgetList extends Component {
         this.setState({
           bill: array,
         });
-
         this.setState({
           tenthuoc: "",
           donvi: "",
@@ -391,6 +390,15 @@ class WidgetList extends Component {
           idThuoc: 0,
           tongtien: parseInt(this.state.tongtien) + parseInt(tong),
         });
+        setTimeout(
+          () =>
+            this.messagesEnd.scrollIntoView({
+              behavior: "instant",
+              block: "end",
+              inline: "nearest",
+            }),
+          1000
+        );
       }
     }
   };
@@ -427,6 +435,7 @@ class WidgetList extends Component {
       arrayClone.splice(index, 1);
     }
     this.setState({ bill: arrayClone });
+    this.handleSave();
   }
 
   format2(n, currency) {
@@ -716,7 +725,12 @@ class WidgetList extends Component {
               <div className="custom-table-bill">
                 <div className="no-padding">
                   <div className="table-responsive">
-                    <table className="table table-bordered table-striped table-hover ">
+                    <table
+                      ref={el => {
+                        this.messagesEnd = el;
+                      }}
+                      className="table table-bordered table-striped table-hover "
+                    >
                       <thead>
                         <tr>
                           <th>STT</th>

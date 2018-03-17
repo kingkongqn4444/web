@@ -7,7 +7,7 @@ import serialize from "form-serialize";
 import Modal from "react-modal";
 import Utils, { LINK } from "../../utils";
 import { Link } from "react-router-dom";
-
+import PrintTemplate from "react-print";
 class SearchCart extends Component {
   constructor(props) {
     super(props);
@@ -32,12 +32,6 @@ class SearchCart extends Component {
     await this.props.actions.authenticate.getListOrder(
       this.props.storage.token
     );
-    if (this.props.id) {
-      await this.props.actions.authenticate.detailCustomer(
-        this.props.storage.token,
-        this.props.id
-      );
-    }
   }
 
   getTime(time) {
@@ -70,7 +64,6 @@ class SearchCart extends Component {
     ) {
       this.setState({ data: nextProps.authenticate.detailOrder.data });
     }
-
     if (
       nextProps.authenticate.listOrder &&
       nextProps.authenticate.listOrder.status == 200
@@ -99,7 +92,9 @@ class SearchCart extends Component {
       <div id="content">
         <div className="row">
           <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
-            <h1 className="page-title txt-color-blueDark">Danh Sách Đơn Hàng</h1>
+            <h1 className="page-title txt-color-blueDark">
+              Danh Sách Đơn Hàng
+            </h1>
           </div>
           <div className="col-xs-12 col-sm-5 col-md-5 col-lg-8">
             <ul id="sparks" className="">
@@ -178,6 +173,7 @@ class SearchCart extends Component {
           isOpen={this.state.modalIsOpen}
           onAfterOpen={this.afterOpenModal}
           onRequestClose={this.closeModal}
+          style={Modal.zeroStyle}
           style={{
             overlay: {
               position: "fixed",
@@ -207,7 +203,7 @@ class SearchCart extends Component {
           contentLabel="Example Modal"
           ariaHideApp={false}
         >
-          <div>
+          <div id="react-no-print">
             <h4>Tên : {this.state.data.name}</h4>
             <h4>Địa chỉ :{this.state.data.address}</h4>
             <h4>Số điện thoại :{this.state.data.phone}</h4>
@@ -245,6 +241,7 @@ class SearchCart extends Component {
                   : null}
               </tbody>
             </table>
+            <h2>Tổng tiền đơn hàng : {this.state.tongtien}</h2>
           </div>
         </Modal>
         <Loading loading={this.state.loading} />
