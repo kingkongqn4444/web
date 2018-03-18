@@ -10,6 +10,7 @@ import Loading from "../../../components/loading";
 import Utils, { BIGBOX, LINK } from "../../../utils";
 import { Link } from "react-router-dom";
 import index from "../../../stores/states/authenticate/index";
+import Cleave from "cleave.js/react";
 const theme = {
   container: {
     position: "relative",
@@ -120,7 +121,7 @@ class WidgetList extends Component {
         addressCustomer: this.props.storage.dataProduct.address,
         noteCustomer: this.props.storage.dataProduct.note,
         bill: this.props.storage.dataProduct.po_product || [],
-        idCustomer: this.props.storage.dataProduct.id,
+        idCustomer: this.props.storage.dataProduct.id || 0,
         tongtien: this.props.storage.dataProduct.tongtien || 0,
       });
     }
@@ -256,18 +257,18 @@ class WidgetList extends Component {
 
   handleSave = () => {
     let data = {
-      name: this.state.nameCustomer,
       phone: this.state.phoneCustomer,
       address: this.state.addressCustomer,
       tongtien: this.state.tongtien,
       note: this.state.noteCustomer,
       po_product: this.state.bill,
     };
+    this.saveNameCustoner();
     this.props.actions.storage.setListBill(data);
   };
 
-  submitBill = () => {
-    this.setState({ loading: true });
+  saveNameCustoner() {
+    this.setState({ nameCustomer: this._inputName.value });
     if (this.state.idCustomer == 0) {
       this.props.actions.authenticate.addCustomer(
         this.props.storage.token,
@@ -278,16 +279,21 @@ class WidgetList extends Component {
         this.state.noteCustomer
       );
     }
-    var that = this;
+  }
+
+  submitBill = () => {
+    this.setState({ loading: true });
     let data = {
       address: this.state.addressCustomer,
-      customer_id: this.state.idCustomer,
+      customer_id: this.state.idCustomer || 0,
       delivery_date: this.state.dateCustomer,
       name: this.state.nameCustomer,
+      amount: this.state.tongtien,
       note: this.state.noteCustomer,
       phone: this.state.phoneCustomer,
       po_product: this.state.bill,
     };
+    var that = this;
     fetch("https://medicine-api.herokuapp.com/api/v1/order", {
       method: "POST",
       body: JSON.stringify(data),
@@ -299,14 +305,11 @@ class WidgetList extends Component {
     }).then(
       function(response) {
         if (response.status == 200) {
-          // this.props.actions.storage.clearListBill();
-          that.setState({
-            loading: false,
-            bill: [],
-          });
+          that.setState({ bill: [], loading: false });
         }
       },
       function(error) {
+        that.setState({ loading: false });
         error.message;
       }
     );
@@ -316,10 +319,10 @@ class WidgetList extends Component {
     this.setState({ loading: true });
     var that = this;
     let data = {
-      address: this.state.addressCustomer,
+      address: this.state.addressCustomer || "",
       name: this.state.nameCustomer,
-      note: this.state.noteCustomer,
-      phone: this.state.phoneCustomer,
+      note: this.state.noteCustomer || "",
+      phone: this.state.phoneCustomer || "",
       po_product: this.state.bill,
     };
 
@@ -421,10 +424,10 @@ class WidgetList extends Component {
   dataReturn = value => {
     this.setState({
       nameCustomer: value.name,
-      phoneCustomer: value.phone,
-      addressCustomer: value.address,
-      noteCustomer: value.note,
-      idCustomer: value.id,
+      phoneCustomer: value.phone || 0,
+      addressCustomer: value.address || "",
+      noteCustomer: value.note || "",
+      idCustomer: value.id || 0,
     });
   };
 
@@ -444,6 +447,14 @@ class WidgetList extends Component {
 
   format3(n) {
     return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1");
+  }
+
+  onCreditCardChange(event) {
+    // formatted pretty value
+    console.log(event.target.value);
+
+    // raw value
+    console.log(event.target.rawValue);
   }
 
   render() {
@@ -498,6 +509,13 @@ class WidgetList extends Component {
                       <SuggesEditext
                         dataReturn={data => this.dataReturn(data)}
                         languages={this.state.listCustomer}
+                        renderInputComponent={inputProps => (
+                          <input
+                            {...inputProps}
+                            ref={c => (this._inputName = c)}
+                          />
+                        )}
+                        value={this.state.nameCustomer}
                       />
                     </label>
                   </div>
@@ -629,18 +647,33 @@ class WidgetList extends Component {
                   <div className="col col-md-2 col-sm-2 col-xs-2">
                     <label className="input">
                       <h3>Giá :</h3>
-                      <input
+                      {/* <input
                         // type="number"
                         name="t"
                         placeholder="Giá"
                         id="one"
-                        value={this.state.gia}
+                        value={this.format3(parseInt(this.state.gia))}
                         onChange={e =>
                           this.setState({
                             gia: e.target.value,
                             thanhtien: e.target.value * this.state.soluong,
                           })
                         }
+                      /> */}
+                      <Cleave
+                        placeholder="Giá thuốc"
+                        options={{
+                          numeral: true,
+                          numeralThousandsGroupStyle: "thousand",
+                        }}
+                        onFocus={this.onCreditCardFocus}
+                        onChange={e =>
+                          this.setState({
+                            gia: e.target.rawValue,
+                            thanhtien: e.target.rawValue * this.state.soluong,
+                          })
+                        }
+                        value={this.state.gia}
                       />
                     </label>
                   </div>
@@ -652,6 +685,7 @@ class WidgetList extends Component {
                         name="t"
                         placeholder="Số lượng"
                         id="one"
+                        onBlur={this.handleSave}
                         onFocus={() => this.checkThemThuocMoi()}
                         value={this.state.soluong}
                         onChange={e =>
@@ -683,18 +717,33 @@ class WidgetList extends Component {
                   <div className="col col-md-2 col-sm-2 col-xs-2">
                     <label className="input">
                       <h3>Thành tiền:</h3>
-                      <input
+                      {/* <input
                         name="t"
                         placeholder="Thành tiền"
                         id="one"
                         onFocus={() => this.onForCus()}
                         onBlur={this.handleSave}
                         value={this.format3(
-                          this.state.gia * this.state.soluong
+                          parseInt(this.state.gia * this.state.soluong)
                         )}
                         onChange={e =>
                           this.setState({ thanhtien: e.target.value })
                         }
+                      /> */}
+                      <Cleave
+                        name="t"
+                        id="one"
+                        placeholder="Thành Tiền"
+                        options={{
+                          numeral: true,
+                          numeralThousandsGroupStyle: "thousand",
+                        }}
+                        onFocus={() => this.onForCus()}
+                        onBlur={this.handleSave}
+                        onChange={e =>
+                          this.setState({ thanhtien: e.target.rawValue })
+                        }
+                        value={this.state.gia * this.state.soluong}
                       />
                     </label>
                   </div>
@@ -719,7 +768,7 @@ class WidgetList extends Component {
               <span className="widget-icon">
                 <i className="fa fa-table" />
               </span>
-              <h2>Danh sách nội dung</h2>
+              <h2>Đơn Hàng</h2>
             </header>
             <div className="widget-body">
               <div className="custom-table-bill">
@@ -749,7 +798,7 @@ class WidgetList extends Component {
                             <th>{index + 1}</th>
                             <th>{item.name}</th>
                             <th>{item.uom}</th>
-                            <th>{item.price}</th>
+                            <th>{this.format2(parseInt(item.price), "VND")}</th>
                             <th>{item.quantity}</th>
                             <th>{this.format2(item.amount, "VND")}</th>
                             <th>{item.note}</th>

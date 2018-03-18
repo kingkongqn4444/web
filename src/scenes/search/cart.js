@@ -85,6 +85,14 @@ class SearchCart extends Component {
     }
   }
 
+  format2(n, currency) {
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1,") + " " + currency;
+  }
+
+  format3(n) {
+    return n.toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, "$1");
+  }
+
   editOrder = () => {};
 
   render() {
@@ -232,16 +240,19 @@ class SearchCart extends Component {
                       <tr key={index}>
                         <th>{item.name}</th>
                         <th>{item.uom}</th>
-                        <th>{item.price}</th>
+                        <th>{this.format3(parseInt(item.price))}</th>
                         <th>{item.quantity}</th>
-                        <th>{item.amount}</th>
+                        <th>{this.format3(parseInt(item.amount))}</th>
                         <th>{item.note}</th>
                       </tr>
                     ))
                   : null}
               </tbody>
             </table>
-            <h2>Tổng tiền đơn hàng : {this.state.tongtien}</h2>
+            <h2>
+              Tổng tiền đơn hàng :{" "}
+              {this.format2(parseInt(this.state.data.amount), "VND")}
+            </h2>
           </div>
         </Modal>
         <Loading loading={this.state.loading} />

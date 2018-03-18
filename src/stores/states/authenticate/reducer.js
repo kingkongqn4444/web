@@ -115,7 +115,6 @@ export default createReducer(INIT_STATE, {
   },
 
   [Types.DELETE_CUSTOMER_SUCCESS]: (state, action) => {
-    console.log("asdadfghjfdsfgmmgnbsdmmnasdhgmgnfds", action);
     return {
       ...state,
       deleteCustomer: action.response,

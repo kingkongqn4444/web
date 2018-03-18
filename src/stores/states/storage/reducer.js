@@ -30,7 +30,6 @@ export default createReducer(INIT_STATE, {
   },
 
   [Types.GET_DATA]: (state, action) => {
-  
     return {
       ...state,
       dataProduct: action.response,
@@ -45,10 +44,10 @@ export default createReducer(INIT_STATE, {
   },
 
   [Types.REMOVE_LIST_DATA]: (state, action) => {
-    console.log("ashdjksdhfsjkdfhaskdjfasdfasdfs Remove", action);
+    console.log("ashdjksdhfsjkdfhaskdjfasdfasdfs", action);
     return {
       ...state,
-      dataProduct: action.storage.payload,
+      dataProduct: action.storage.payload.dataProduct,
     };
   },
 

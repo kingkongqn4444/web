@@ -133,6 +133,9 @@ export default class Example extends React.Component {
         theme={theme}
         highlightFirstSuggestion={true}
         onSuggestionSelected={this.onSuggestionSelected}
+        renderInputComponent={inputProps =>
+          this.props.renderInputComponent(inputProps)
+        }
       />
     );
   }

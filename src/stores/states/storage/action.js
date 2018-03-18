@@ -60,6 +60,7 @@ export function clearListBill() {
   return {
     type: Types.REMOVE_LIST_DATA,
     storage: {
+      key: "SAVE_DATA",
       method: "remove",
       payload: "data",
     },

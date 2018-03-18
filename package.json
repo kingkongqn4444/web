@@ -11,6 +11,7 @@
     "bootstrap": "^3.3.7",
     "bootstrap-tagsinput": "^0.7.1",
     "chart.js": "^2.7.1",
+    "cleave.js": "^1.1.5",
     "clockpicker": "0.0.7",
     "dateformat": "^3.0.2",
     "form-serialize": "^0.7.2",
