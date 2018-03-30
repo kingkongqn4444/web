@@ -14,9 +14,7 @@ class Launcher extends Component {
   async componentWillMount() {
     await this.props.actions.storage.getAccessToken();
     await this.props.actions.authenticate.getAllProduct();
-    await this.props.actions.authenticate.getAllCustomer(
-      this.props.storage.token
-    );
+    await this.props.actions.storage.getUser();
     let navigations = Configs["navigation"];
     let res = {};
     this.populate(navigations.items, [], res);

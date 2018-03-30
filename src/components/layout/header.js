@@ -11,7 +11,7 @@ export default class Header extends React.Component {
         return <header id="header">
             <div id="logo-group">
                 <span id="logo">
-                    <b>PPMS</b>
+                    <b>PPMS.VN</b>
                     {/* <img src="/assets/img/logo.png" // place your logo here */}
                         {/* alt="PPMS" /> */}
                 </span>
@@ -25,7 +25,7 @@ export default class Header extends React.Component {
                 <ul id="mobile-profile-img" className="header-dropdown-list hidden-xs padding-5">
                     <li className="">
                         <a className="dropdown-toggle no-margin userdropdown" data-toggle="dropdown">
-                            <img src="/assets/img/avatars/sunny.png" alt="John Doe" className="online" />
+                            {/* <img src="/assets/img/avatars/sunny.png" alt="John Doe" className="online" /> */}
                         </a>
                         <ul className="dropdown-menu pull-right">
                             <li>
@@ -62,7 +62,7 @@ export default class Header extends React.Component {
                 {/* logout button */}
                 <div id="logout" className="btn-header transparent pull-right">
                     <span>
-                        <a href="#/login" title="Sign Out" onClick={() => this.props.logout()}
+                        <a href="/dang-nhap" title="Sign Out" onClick={() => this.props.logout()}
                             data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i
                                 className="fa fa-sign-out" /></a> </span>
                 </div>

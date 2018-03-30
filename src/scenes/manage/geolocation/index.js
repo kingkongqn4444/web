@@ -1,35 +1,38 @@
-import React, {
-    Component
-} from 'react';
+import React, { Component } from "react";
 
-import Connect from '../../../stores/connect';
+import Connect from "../../../stores/connect";
 
-import Layout from '../../../components/layout';
+import Layout from "../../../components/layout";
 
-import Add from './geolocation_add';
-import List from './geolocation_list';
+import Add from "./geolocation_add";
+import List from "./geolocation_list";
 
 class AccountList extends Component {
-    constructor(props) {
-        super(props);
-    }
+  constructor(props) {
+    super(props);
+  }
 
-    render() {
-        let child = <div/>;
-        switch (this.props.match.params.action) {
-            case "list" :
-                child = <List/>;
-                break;
-            case "add" :
-                child = <Add/>;
-                break;
-        }
-        return (
-            <Layout>
-                {child}
-            </Layout>
-        )
+  render() {
+    let child = <div />;
+    switch (this.props.match.params.action) {
+      case "list":
+        child = <List />;
+        break;
+      case "add":
+        child = <Add />;
+        break;
     }
+    return (
+      <Layout
+        logout={() => {
+          this.props.actions.storage.removeAccessToken(),
+            this.props.actions.storage.removeUser();
+        }}
+      >
+        {child}
+      </Layout>
+    );
+  }
 }
 
 export default Connect(AccountList);

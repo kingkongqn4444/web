@@ -46,10 +46,19 @@
 }
 
 div.custom-table-bill {
+  height: 600px;
+  overflow: auto;
+}
+
+div.custom-table-thuoc {
   height: 300px;
   overflow: auto;
 }
 
 div.btn-confirm-customer {
   margin-top: 20px;
+}
+
+.fontWeight {
+  font-weight: bold;
 }

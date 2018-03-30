@@ -25,7 +25,10 @@ class Vendor extends Component {
             child= <Add id={this.props.match.params.action}/>
         }
         return (
-            <Layout>
+            <Layout   logout={() => {
+                this.props.actions.storage.removeAccessToken(),
+                  this.props.actions.storage.removeUser();
+              }}>
                 {child}
             </Layout>
         )

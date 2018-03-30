@@ -48,7 +48,9 @@ export default class ToggleShortcut extends React.Component{
     }
     render(){
         return (
-            <a href="#" onClick={this.toggleShortcut}>{this.props.children}</a>
+            <a href="#" 
+            onClick={this.toggleShortcut}
+            >{this.props.children}</a>
         )
     }
 

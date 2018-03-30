@@ -9,6 +9,11 @@ export default keymirror(
 
     LIST_ALL_SUP: null,
     LIST_ALL_SUP_SUCCESS: null,
+
+    SORT_LIST_BILL: null,
+    SORT_LIST_BILL_SUCCESS: null,
+
+    SET_FLAG_SHORT_BILL: null,
   },
   "PRODUCT_"
 );

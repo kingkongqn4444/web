@@ -8,7 +8,8 @@ import Loading from "../../../components/loading";
 import Paginate from "../../../components/paginate";
 import serialize from "form-serialize";
 import Modal from "react-modal";
-
+import ModalDelete from "../../../components/modalDelete";
+import CustomerModal from "../../../components/modalDetailCustomer";
 class ProductList extends Component {
   constructor(props) {
     super(props);
@@ -38,9 +39,6 @@ class ProductList extends Component {
     await this.props.actions.authenticate.deleteCustomer(
       this.props.storage.token,
       id
-    );
-    await this.props.actions.authenticate.getAllCustomer(
-      this.props.storage.token
     );
   }
 
@@ -72,8 +70,11 @@ class ProductList extends Component {
     }
     if (
       nextProps.authenticate.deleteCustomer &&
-      nextProps.authenticate.deleteCustomer.status == 200
+      nextProps.authenticate.deleteCustomer.status == 200 &&
+      !nextProps.authenticate.flagDeleteCustomer
     ) {
+      this.props.actions.authenticate.setFlagDeleteCustomer(true);
+      this.props.actions.authenticate.getAllCustomer(this.props.storage.token);
       this.setState({
         modalDeleteCustomer: false,
         idDelete: 0,
@@ -100,6 +101,9 @@ class ProductList extends Component {
     return (
       <div id="content">
         <Loading loading={this.state.loading} />
+        {/* <div>
+          <CustomerModal data={"asdasda1111s"} />
+        </div> */}
         <div className="row">
           <div className="col-xs-12 col-sm-7 col-md-7 col-lg-4">
             <h1 className="page-title txt-color-blueDark">
@@ -121,53 +125,64 @@ class ProductList extends Component {
           </header>
           <div>
             <div className="widget-body no-padding">
-              <div className="table-responsive">
-                <table className="table table-bordered table-striped table-hover">
-                  <thead>
-                    <tr>
-                      <th>Tên</th>
-                      <th>Địa chỉ</th>
-                      <th>email</th>
-                      <th>Số điện thoại</th>
-                      <th>Note</th>
-                      <th>Chi tiết</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {this.state.listCustomer &&
-                    this.state.listCustomer.length > 0
-                      ? this.state.listCustomer.map((item, index) => (
-                          <tr key={index}>
-                            <th>{item.name}</th>
-                            <th>{item.address}</th>
-                            <th>{item.email}</th>
-                            <th>{item.phone}</th>
-                            <th>{item.note}</th>
-                            <th>
-                              <button
-                                className="btn btn-success col-xs-offset-1"
-                                type="button"
-                                onClick={() => this.detailCustomer(item.id)}
-                              >
-                                Chi tiết
-                              </button>
-                              <button
-                                className="btn btn-info col-xs-offset-1"
-                                onClick={() =>
-                                  this.setState({
-                                    idDelete: item.id,
-                                    modalDeleteCustomer: true,
-                                  })
-                                }
-                              >
-                                Xóa
-                              </button>
-                            </th>
-                          </tr>
-                        ))
-                      : null}
-                  </tbody>
-                </table>
+              <div className="custom-table-bill">
+                <div className="table-responsive">
+                  <table className="table table-bordered table-striped table-hover">
+                    <thead>
+                      <tr>
+                        <th>Tên</th>
+                        <th>Địa chỉ</th>
+                        <th>email</th>
+                        <th>Số điện thoại</th>
+                        <th>Note</th>
+                        <th>Chi tiết</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {this.state.listCustomer &&
+                      this.state.listCustomer.length > 0
+                        ? this.state.listCustomer.map((item, index) => (
+                            <tr key={index}>
+                              <th>{item.name}</th>
+                              <th>{item.address}</th>
+                              <th>{item.email}</th>
+                              <th>{item.phone}</th>
+                              <th>{item.note}</th>
+                              <th>
+                                <button
+                                  className="btn btn-success col-xs-offset-1"
+                                  type="button"
+                                  onClick={() => this.detailCustomer(item.id)}
+                                >
+                                  Chi tiết
+                                </button>
+                                {/* <button
+                                  className="btn btn-success col-xs-offset-2"
+                                  data-toggle="modal"
+                                  data-target="#customerModal"
+                                  // onClick={() => alert("asdasd")}
+                                >
+                                  {" "}
+                                  Chi Tiết
+                                </button> */}
+                                <button
+                                  className="btn btn-info col-xs-offset-1"
+                                  onClick={() =>
+                                    this.setState({
+                                      idDelete: item.id,
+                                      modalDeleteCustomer: true,
+                                    })
+                                  }
+                                >
+                                  Xóa
+                                </button>
+                              </th>
+                            </tr>
+                          ))
+                        : null}
+                    </tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -249,56 +264,11 @@ class ProductList extends Component {
             </Link>
           </div>
         </Modal>
-
-        <Modal
-          isOpen={this.state.modalDeleteCustomer}
-          style={{
-            overlay: {
-              position: "fixed",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              backgroundColor: "rgba(0, 0, 0, 0.75)",
-              alignSelf: "center",
-            },
-            content: {
-              position: "absolute",
-              top: "30%",
-              left: "40%",
-              right: "auto",
-              bottom: "auto",
-              marginRight: "-50%",
-              border: "1px solid #ccc",
-              background: "#fff",
-              overflow: "auto",
-              WebkitOverflowScrolling: "touch",
-              borderRadius: "4px",
-              outline: "none",
-              padding: "20px",
-            },
-          }}
-          contentLabel="Example Modal"
-          ariaHideApp={false}
-        >
-          <div>
-            <h4>Bạn muốn xóa người này khỏi danh sách</h4>
-            <div className="btn-confirm-customer">
-              <button
-                className="btn btn-success col-xs-offset-2"
-                onClick={() => this.deleteCustomer(this.state.idDelete)}
-              >
-                Đồng Ý
-              </button>
-              <button
-                className="btn btn-danger col-xs-offset-3"
-                onClick={() => this.setState({ modalDeleteCustomer: false })}
-              >
-                Hủy bỏ
-              </button>
-            </div>
-          </div>
-        </Modal>
+        <ModalDelete
+          status={this.state.modalDeleteCustomer}
+          actionLeft={() => this.setState({ modalDeleteCustomer: false })}
+          actionRight={() => this.deleteCustomer(this.state.idDelete)}
+        />
       </div>
     );
   }

@@ -3,6 +3,7 @@ import createReducer from "../";
 
 const INIT_STATE = {
   token: "-",
+  user: [],
   dataProduct: [],
   //   listProduct: [],
 };
@@ -44,7 +45,6 @@ export default createReducer(INIT_STATE, {
   },
 
   [Types.REMOVE_LIST_DATA]: (state, action) => {
-    console.log("ashdjksdhfsjkdfhaskdjfasdfasdfs", action);
     return {
       ...state,
       dataProduct: action.storage.payload.dataProduct,
@@ -64,4 +64,27 @@ export default createReducer(INIT_STATE, {
   //       listProduct: action.storage.payload.data,
   //     };
   //   },
+
+  [Types.SET_USER]: (state, action) => {
+    console.log("asdkaljsdkajdsalsdasdasda", action);
+    return {
+      ...state,
+      user: action.storage.payload,
+    };
+  },
+
+  [Types.GET_USER]: (state, action) => {
+    console.log("asdkaljsdasdaskajdsalsdasdasdaaasdasda", action);
+    return {
+      ...state,
+      user: action.response.user,
+    };
+  },
+
+  [Types.REMOVE_USER]: (state, action) => {
+    return {
+      ...state,
+      user: action.storage.payload,
+    };
+  },
 });

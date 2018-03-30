@@ -1,6 +1,7 @@
-import keymirror from '../../../utils/keymirror';
+import keymirror from "../../../utils/keymirror";
 
-export default keymirror({
+export default keymirror(
+  {
     LOGIN: null,
     LOGIN_SUCCESS: null,
 
@@ -25,7 +26,6 @@ export default keymirror({
     ADD_CUSTOMER: null,
     ADD_CUSTOMER_SUCCESS: null,
 
-
     DETAIL_CUSTOMER: null,
     DETAIL_CUSTOMER_SUCCESS: null,
 
@@ -41,7 +41,33 @@ export default keymirror({
     REGISTER: null,
     REGISTER_SUCCESS: null,
 
+    ADD_USER: null,
+    ADD_USER_SUCCESS: null,
 
+    DETAIL_ADMIN: null,
+    DETAIL_ADMIN_SUCCESS: null,
+    SET_FLAG_SET_LIST_PRODUCT: null,
+    SET_FLAG_DELETE_CUSTOMER: null,
 
-    SET_FLAG_SET_LIST_PRODUCT: null
-}, "AUTHENTICATE_");
+    SEND_CODE: null,
+    SEND_CODE_SUCCESS: null,
+
+    RESET_PASSWORD: null,
+    RESET_PASSWORD_SUCCESS: null,
+
+    UPDATE_USER: null,
+    UPDATE_USER_SUCCESS: null,
+
+    DETAIL_USER: null,
+    DETAIL_USER_SUCCESS: null,
+
+    CHANGE_PASSWORD_ADMIN: null,
+    CHANGE_PASSWORD_ADMIN_SUCCESS: null,
+
+    SET_FLAG_LOGIN: null,
+    SET_FLAG_REGISTER: null,
+    SET_FLAG_SENDCODE: null,
+    SET_FLAG_RESET_PASS:null,
+  },
+  "AUTHENTICATE_"
+);

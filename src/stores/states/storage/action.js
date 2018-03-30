@@ -91,3 +91,38 @@ export function getListProduct() {
     },
   };
 }
+
+export function setUser(data) {
+  return {
+    type: Types.SET_USER,
+    storage: {
+      key: "USER",
+      method: "setObject",
+      payload: {
+        data,
+      },
+    },
+  };
+}
+
+export function getUser() {
+  return {
+    type: Types.GET_USER,
+    storage: {
+      key: "USER",
+      method: "getObject",
+      payload: "data",
+    },
+  };
+}
+
+export function removeUser() {
+  return {
+    type: Types.REMOVE_USER,
+    storage: {
+      key: "USER",
+      method: "remove",
+      payload: "data",
+    },
+  };
+}

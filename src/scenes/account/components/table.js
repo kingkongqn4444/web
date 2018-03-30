@@ -10,7 +10,8 @@ class Table extends Component {
     }
     render() {
         let row = Permission.map((row, index)=> {
-            return (<Row curPermission={this.props.rows} listPermission={row} index={index} key={index} type={this.props.type}  />);
+            return (
+            <Row curPermission={this.props.rows} listPermission={row} index={index} key={index} type={this.props.type}  />);
         })
 
         return (<tbody>{row}</tbody>);

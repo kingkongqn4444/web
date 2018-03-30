@@ -16,7 +16,24 @@ const INIT_STATE = {
   addOutlet: [],
   listOutlet: [],
   register: [],
+
+  addUser: [],
+  detailAdmin: [],
+  updateUser: [],
+  detailUser: [],
+  changePassword: [],
+
+  sendCode: [],
+  resetPass: [],
+  error: "",
+  success: "",
+
+  flagLogin: true,
+  flagRegister: true,
   flagListProduct: true,
+  flagDeleteCustomer: true,
+  flagSendCode: true,
+  flagResetPass: true,
 };
 
 export default createReducer(INIT_STATE, {
@@ -32,6 +49,7 @@ export default createReducer(INIT_STATE, {
     return {
       ...state,
       login: action.response,
+      flagLogin: false,
     };
   },
 
@@ -40,6 +58,7 @@ export default createReducer(INIT_STATE, {
       ...state,
       login: action.response,
       token: action.response.access_token,
+      error: action.response.error,
     };
   },
 
@@ -47,10 +66,14 @@ export default createReducer(INIT_STATE, {
     return {
       ...state,
       register: action.response,
+      error: action.response.message,
+      success: action.response.message,
+      flagRegister: false,
     };
   },
 
   [Types.GET_ALL_PRODUCT]: (state, action) => {
+    console.log("asdkjasdkljasdasjdlkasdasda", action);
     return {
       ...state,
       allProduct: action.response,
@@ -118,6 +141,7 @@ export default createReducer(INIT_STATE, {
     return {
       ...state,
       deleteCustomer: action.response,
+      flagDeleteCustomer: false,
     };
   },
 
@@ -157,17 +181,110 @@ export default createReducer(INIT_STATE, {
   },
 
   [Types.LIST_OUTLET_SUCCESS]: (state, action) => {
-    console.log("sdasdasdjkabsdajsdbajskdbajdbahsd", action);
     return {
       ...state,
       listOutlet: action.response,
     };
   },
 
+  [Types.ADD_USER_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      addUser: action.response,
+    };
+  },
+
+  [Types.DETAIL_ADMIN_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      detailAdmin: action.response,
+    };
+  },
+
+  [Types.UPDATE_USER_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      updateUser: action.response,
+    };
+  },
+
+  [Types.DETAIL_USER_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      detailUser: action.response,
+    };
+  },
+
+  [Types.SEND_CODE_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      sendCode: action.response,
+      success: action.response.message,
+      error: action.response.message,
+      flagSendCode: false,
+    };
+  },
+
+  [Types.RESET_PASSWORD_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      resetPass: action.response,
+      success: action.response.message,
+      error: action.response.message,
+      flagResetPass: false,
+    };
+  },
+
+  [Types.CHANGE_PASSWORD_ADMIN_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      changePassword: action.response,
+      error: action.response.message,
+      success: action.response.message,
+    };
+  },
+
+  // Flag
+
   [Types.SET_FLAG_SET_LIST_PRODUCT]: (state, action) => {
     return {
       ...state,
       flagListProduct: action.payload,
+    };
+  },
+
+  [Types.SET_FLAG_DELETE_CUSTOMER]: (state, action) => {
+    return {
+      ...state,
+      flagDeleteCustomer: action.payload,
+    };
+  },
+
+  [Types.SET_FLAG_LOGIN]: (state, action) => {
+    return {
+      ...state,
+      flagLogin: action.payload,
+    };
+  },
+
+  [Types.SET_FLAG_REGISTER]: (state, action) => {
+    return {
+      ...state,
+      flagRegister: action.payload,
+    };
+  },
+
+  [Types.SET_FLAG_SENDCODE]: (state, action) => {
+    return {
+      ...state,
+      flagSendCode: action.payload,
+    };
+  },
+
+  [Types.SET_FLAG_RESET_PASS]: (state, action) => {
+    return {
+      ...state,
+      flagResetPass: action.payload,
     };
   },
 });

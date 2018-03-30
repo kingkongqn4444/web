@@ -104,6 +104,9 @@ class WidgetList extends Component {
   }
 
   async componentWillMount() {
+    await this.props.actions.authenticate.getAllCustomer(
+      this.props.storage.token
+    );
     if (this.props.id) {
       this.setState({ loading: true });
       this.props.actions.authenticate.getDetailOrder(
@@ -263,12 +266,11 @@ class WidgetList extends Component {
       note: this.state.noteCustomer,
       po_product: this.state.bill,
     };
-    this.saveNameCustoner();
+    this.setState({ nameCustomer: this._inputName.value });
     this.props.actions.storage.setListBill(data);
   };
 
-  saveNameCustoner() {
-    this.setState({ nameCustomer: this._inputName.value });
+  async saveNewCustomer() {
     if (this.state.idCustomer == 0) {
       this.props.actions.authenticate.addCustomer(
         this.props.storage.token,
@@ -278,6 +280,7 @@ class WidgetList extends Component {
         this.state.phoneCustomer,
         this.state.noteCustomer
       );
+      this.setState({ idCustomer: null });
     }
   }
 
@@ -294,7 +297,7 @@ class WidgetList extends Component {
       po_product: this.state.bill,
     };
     var that = this;
-    fetch("https://medicine-api.herokuapp.com/api/v1/order", {
+    fetch("https://ppms.vn/api.ppms.vn/api/v1/order", {
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -305,7 +308,8 @@ class WidgetList extends Component {
     }).then(
       function(response) {
         if (response.status == 200) {
-          that.setState({ bill: [], loading: false });
+          that.saveNewCustomer();
+          that.setState({ loading: false, modalIsOpen: true });
         }
       },
       function(error) {
@@ -317,7 +321,7 @@ class WidgetList extends Component {
 
   editBill = () => {
     this.setState({ loading: true });
-    var that = this;
+
     let data = {
       address: this.state.addressCustomer || "",
       name: this.state.nameCustomer,
@@ -325,22 +329,19 @@ class WidgetList extends Component {
       phone: this.state.phoneCustomer || "",
       po_product: this.state.bill,
     };
-
-    fetch(
-      "https://medicine-api.herokuapp.com/api/v1/order/" + this.state.idBill,
-      {
-        method: "PUT",
-        body: JSON.stringify(data),
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          Authorization: "Bearer " + this.props.storage.token,
-        },
-      }
-    ).then(
+    var that = this;
+    fetch("https://ppms.vn/api.ppms.vn/api/v1/order/" + this.state.idBill, {
+      method: "PUT",
+      body: JSON.stringify(data),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + this.props.storage.token,
+      },
+    }).then(
       function(response) {
         if (response.status == 200) {
-          that.setState({ loading: false });
+          that.setState({ loading: false, bill: [] });
         }
       },
       function(error) {
@@ -771,7 +772,7 @@ class WidgetList extends Component {
               <h2>Đơn Hàng</h2>
             </header>
             <div className="widget-body">
-              <div className="custom-table-bill">
+              <div className="custom-table-thuoc">
                 <div className="no-padding">
                   <div className="table-responsive">
                     <table
@@ -800,11 +801,14 @@ class WidgetList extends Component {
                             <th>{item.uom}</th>
                             <th>{this.format2(parseInt(item.price), "VND")}</th>
                             <th>{item.quantity}</th>
-                            <th>{this.format2(item.amount, "VND")}</th>
+                            <th>
+                              {this.format2(parseInt(item.amount), "VND")}
+                            </th>
                             <th>{item.note}</th>
                             <th>
                               <button
                                 type="button"
+                                className="btn btn-success"
                                 onClick={() => this.deleteThuoc(index)}
                               >
                                 Xóa
@@ -817,9 +821,16 @@ class WidgetList extends Component {
                   </div>
                 </div>
               </div>
-              <div className="col-xs-offset-7">
+              <div className="col-sm-8">
                 <label className="input">
-                  <h3>Tổng tiền: {this.format2(this.state.tongtien, "VND")}</h3>
+                  <h3 className="fontWeight">Tổng tiền:</h3>
+                </label>
+              </div>
+              <div className="col-sm-4">
+                <label className="input">
+                  <h3 className="fontWeight">
+                    {this.format2(parseInt(this.state.tongtien), "VND")}
+                  </h3>
                 </label>
               </div>
             </div>
@@ -859,14 +870,56 @@ class WidgetList extends Component {
           ariaHideApp={false}
         >
           <div>
-            <h4>Tên : </h4>
-            <h4>Địa chỉ :</h4>
-            <h4>Số điện thoại :</h4>
-            <h4>Ngày đặt hàng :</h4>
-            <h4>Ghi chú :</h4>
+            <h4>Tên : {this.state.nameCustomer}</h4>
+            <h4>Địa chỉ : {this.state.addressCustomer}</h4>
+            <h4>Số điện thoại : {this.state.phoneCustomer}</h4>
+            <h4>Ngày đặt hàng : {this.state.dateCustomer}</h4>
+            <h4>Ghi chú : {this.state.noteCustomer}</h4>
             <h4 ref={subtitle => (this.subtitle = subtitle)}>
               Chi tiết đơn đặt hàng
             </h4>
+            <table className="table table-bordered table-striped table-hover">
+              <thead>
+                <tr>
+                  <th>Tên</th>
+                  <th>Đơn vị</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
+                  <th>Thành tiền</th>
+                  <th>Chi tiết</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.bill.map((item, index) =>
+                  console.log("asdasdasdasdasdas", item)
+                )}
+              </tbody>
+              <tbody>
+                {this.state.bill && this.state.bill
+                  ? this.state.bill.map((item, index) => (
+                      <tr key={index}>
+                        <th>{item.name}</th>
+                        <th>{item.oum}</th>
+                        <th>{item.price}</th>
+                        <th>{item.quantity}</th>
+                        <th>{item.amount}</th>
+                        <th>{item.note}</th>
+                      </tr>
+                    ))
+                  : null}
+              </tbody>
+            </table>
+            <h2>
+              Tổng tiền đơn hàng :{" "}
+              {this.format2(parseInt(this.state.tongtien), "VND")}
+            </h2>
+            <button
+              type="button"
+              className="btn btn-info btn-lg"
+              onClick={() => window.print()}
+            >
+              In Đơn hàng
+            </button>
           </div>
         </Modal>
         <Loading loading={this.state.loading} />

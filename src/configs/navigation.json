@@ -10,6 +10,12 @@
           "title": "Tạo đơn hàng",
           "icon": "fa fa-lg fa-fw fa-book",
           "route": "/noi-dung"
+        },
+        {
+          "_id": "search_invoice",
+          "title": "Danh sách đơn hàng",
+          "icon": "fa fa-fw fa-sticky-note-o",
+          "route": "/tra-cuu/don-hang"
         }
       ]
     },
@@ -29,25 +35,6 @@
           "title": "Thêm khách hàng",
           "icon": "fa fa-fw fa-list-alt",
           "route": "/them-khach-hang"
-        }
-      ]
-    },
-    {
-      "_id": "sales",
-      "title": "Danh sách",
-      "icon": "fa fa-fw fa-balance-scale",
-      "items": [
-        {
-          "_id": "search_cart",
-          "title": "Quản lý đơn hàng",
-          "icon": "fa fa-fw fa-shopping-cart",
-          "route": "/tra-cuu/gio-hang"
-        },
-        {
-          "_id": "search_invoice",
-          "title": "Đơn hàng",
-          "icon": "fa fa-fw fa-sticky-note-o",
-          "route": "/tra-cuu/don-hang"
         }
       ]
     },
@@ -133,9 +120,9 @@
         },
         {
           "_id": "role",
-          "title": "Phân quyền",
+          "title": "Đổi mật khẩu",
           "icon": "fa fa-lg fa-fw fa-book",
-          "route": "/tai-khoan/nhom-quyen"
+          "route": "/tai-khoan/doi-mat-khau"
         }
       ]
     },

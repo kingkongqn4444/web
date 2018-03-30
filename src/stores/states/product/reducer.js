@@ -4,6 +4,8 @@ import createReducer from "../";
 const INIT_STATE = {
   addProduct: [],
   listSup: [],
+  listBill: [],
+  shortBill: true,
 };
 
 export default createReducer(INIT_STATE, {
@@ -32,6 +34,28 @@ export default createReducer(INIT_STATE, {
     return {
       ...state,
       listSup: action.response,
+    };
+  },
+
+  [Types.SORT_LIST_BILL]: (state, action) => {
+    return {
+      ...state,
+      listBill: action.response,
+    };
+  },
+
+  [Types.SORT_LIST_BILL_SUCCESS]: (state, action) => {
+    return {
+      ...state,
+      listBill: action.response,
+      shortBill: false,
+    };
+  },
+
+  [Types.SET_FLAG_SHORT_BILL]: (state, action) => {
+    return {
+      ...state,
+      shortBill: action.payload,
     };
   },
 });

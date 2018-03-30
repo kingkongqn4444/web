@@ -19,7 +19,10 @@ class Monitor extends Component {
                 break;
         }
         return (
-            <Layout>
+            <Layout   logout={() => {
+                this.props.actions.storage.removeAccessToken(),
+                  this.props.actions.storage.removeUser();
+              }}>
                 {child}
             </Layout>
         )

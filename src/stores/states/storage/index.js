@@ -13,6 +13,10 @@ export default keymirror(
     GET_LIST_ALL_PRODUCT: null,
 
     REMOVE_LIST_DATA: null,
+
+    SET_USER: null,
+    GET_USER: null,
+    REMOVE_USER: null,
   },
   "STORAGE_"
 );
